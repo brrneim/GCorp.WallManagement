@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.Persistence
 {
-    public class GloboTicketDbContext: DbContext
+    public class GloboTicketDbContext : DbContext
     {
         private readonly ILoggedInUserService _loggedInUserService;
 
@@ -26,6 +26,15 @@ namespace GloboTicket.TicketManagement.Persistence
         public DbSet<Event> Events { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerComment> CustomerComments { get; set; }
+        public DbSet<CustomerRating> CustomerRatings { get; set; }
+        public DbSet<CategoryType> CategoryTypes { get; set; }
+        public DbSet<Work> Works { get; set; }
+        public DbSet<WorkCategoryType> WorkCategoryTypes { get; set; }
+        public DbSet<CustomerCategoryType> CustomerCategoryTypes { get; set; }
+        public DbSet<CustomerMessage> CustomerMessages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -191,6 +200,108 @@ namespace GloboTicket.TicketManagement.Persistence
                 OrderPaid = true,
                 OrderPlaced = DateTime.Now,
                 UserId = Guid.Parse("{7AEB2C01-FE8E-4B84-A5BA-330BDF950F5C}")
+            });
+
+            modelBuilder.Entity<State>(b =>
+            {
+                b.ToTable("States");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.Name).HasColumnType("text").IsRequired();
+            });
+
+            modelBuilder.Entity<Customer>(b =>
+            {
+                b.ToTable("Customers");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.Username).IsRequired();
+                b.Property(f => f.Name).IsRequired();
+                b.Property(f => f.Surname).IsRequired();
+                b.Property(f => f.Password).IsRequired();
+                b.Property(f => f.Mail).IsRequired();
+                b.Property(f => f.PhoneNumber).IsRequired();
+                b.Property(f => f.PictureUrl).IsRequired(false);
+                b.Property(f => f.Title).IsRequired(false);
+                b.Property(f => f.CompanyName).IsRequired(false);
+                b.Property(f => f.CompanyPictureUrl).IsRequired(false);
+                b.Property(f => f.CityId).IsRequired(false);
+                b.Property(f => f.CountyId).IsRequired(false);
+                b.Property(f => f.LocationX).IsRequired(false);
+                b.Property(f => f.LocationY).IsRequired(false);
+                b.Property(f => f.TwitterLink).IsRequired(false);
+                b.Property(f => f.InstagramLink).IsRequired(false);
+                b.Property(f => f.FacebookLink).IsRequired(false);
+                b.Property(f => f.TiktokLink).IsRequired(false);
+                b.Property(f => f.LinkedInLink).IsRequired(false);
+            });
+
+            modelBuilder.Entity<CustomerComment>(b =>
+            {
+                b.ToTable("CustomerComments");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.CustomerId).IsRequired();
+                b.Property(f => f.CommentCustomerId).IsRequired();
+                b.Property(f => f.Comment).IsRequired();
+                b.Property(f => f.WorkId).IsRequired(false);
+            });
+
+            modelBuilder.Entity<CustomerRating>(b =>
+            {
+                b.ToTable("CustomerRatings");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.CustomerId).IsRequired();
+                b.Property(f => f.RatingCustomerId).IsRequired();
+                b.Property(f => f.Value).IsRequired();
+            });
+
+            modelBuilder.Entity<CategoryType>(b =>
+            {
+                b.ToTable("CategoryTypes");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.MainCategoryTypeId).IsRequired(false);
+                b.Property(f => f.Name).IsRequired();
+            });
+
+            modelBuilder.Entity<Work>(b =>
+            {
+                b.ToTable("Works");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.Description).IsRequired();
+                b.Property(f => f.CustomerId).IsRequired();
+                b.Property(f => f.CityId).IsRequired();
+                b.Property(f => f.CountyId).IsRequired();
+                b.Property(f => f.LocationX).IsRequired();
+                b.Property(f => f.LocationY).IsRequired();
+                b.Property(f => f.DealCustomerId).IsRequired(false);
+                b.Property(f => f.ExpireDate).IsRequired();
+                b.Property(f => f.IsActive).IsRequired();
+                b.Property(f => f.StateId).IsRequired();
+            });
+
+            modelBuilder.Entity<WorkCategoryType>(b =>
+            {
+                b.ToTable("WorkCategoryTypes");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.WorkId).IsRequired();
+                b.Property(f => f.CategoryTypeId).IsRequired();
+            });
+
+            modelBuilder.Entity<CustomerCategoryType>(b =>
+            {
+                b.ToTable("CustomerCategoryTypes");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.CustomerId).IsRequired();
+                b.Property(f => f.CategoryTypeId).IsRequired();
+            });
+
+            modelBuilder.Entity<CustomerMessage>(b =>
+            {
+                b.ToTable("CustomerMessages");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.Message).IsRequired();
+                b.Property(f => f.WorkId).IsRequired(false);
+                b.Property(f => f.CustomerSenderId).IsRequired();
+                b.Property(f => f.CustomerReceiverId).IsRequired();
+                b.Property(f => f.IsRead).IsRequired();
             });
         }
 
