@@ -2,12 +2,15 @@
 using GloboTicket.TicketManagement.Application.Features.Categories.Commands.CreateCateogry;
 using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesList;
 using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesListWithEvents;
+using GloboTicket.TicketManagement.Application.Features.CategoryTypes.Queries.GetCategoryTypeList;
 using GloboTicket.TicketManagement.Application.Features.Events.Commands.CreateEvent;
 using GloboTicket.TicketManagement.Application.Features.Events.Commands.UpdateEvent;
 using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventDetail;
 using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventsExport;
 using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventsList;
 using GloboTicket.TicketManagement.Application.Features.Orders.GetOrdersForMonth;
+using GloboTicket.TicketManagement.Application.Features.States.Queries.GetStateQueryList;
+using GloboTicket.TicketManagement.Application.Models.Dtos;
 using GloboTicket.TicketManagement.Domain.Entities;
 
 namespace GloboTicket.TicketManagement.Application.Profiles
@@ -28,6 +31,12 @@ namespace GloboTicket.TicketManagement.Application.Profiles
             CreateMap<Category, CategoryEventListVm>();
             CreateMap<Category, CreateCategoryCommand>();
             CreateMap<Category, CreateCategoryDto>();
+
+            CreateMap<CategoryType, CategoryTypeDto>();
+            CreateMap<CategoryType, CategoryTypeListVm>();
+
+            CreateMap<State, StateDto>();
+            CreateMap<State, StateListVm>();
 
             CreateMap<Order, OrdersForMonthDto>();
         }
