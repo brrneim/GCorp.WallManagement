@@ -1,0 +1,7 @@
+﻿insert into [CategoryTypes] values ('a2573410-d8c7-4fae-821d-78001d29b4e9','Sistem',GETDATE(),NULL,NULL,NULL,'Teknoloji')
+insert into [CategoryTypes] values ('a2573410-d8c7-4fae-821d-78001d29b4e8','Sistem',GETDATE(),NULL,NULL,NULL,'Nakliye')
+insert into [States] values ('a2573410-d8c7-4fae-821d-78001d29b4e9','Sistem',GETDATE(),NULL,NULL,'Yeni Teklif')
+insert into [States] values ('a2573410-d8c7-4fae-821d-78001d29b4e8','Sistem',GETDATE(),NULL,NULL,'Görüşülüyor')
+insert into [States] values ('a2573410-d8c7-4fae-821d-78001d29b4e7','Sistem',GETDATE(),NULL,NULL,'Anlaşma Sağlandı')
+insert into [States] values ('a2573410-d8c7-4fae-821d-78001d29b4e6','Sistem',GETDATE(),NULL,NULL,'Proje Teslim Edildi')
+insert into [States] values ('a2573410-d8c7-4fae-821d-78001d29b4e5','Sistem',GETDATE(),NULL,NULL,'Proje İptal Edildi')
