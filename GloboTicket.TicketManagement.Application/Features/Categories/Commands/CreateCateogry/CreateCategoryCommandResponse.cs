@@ -2,7 +2,7 @@
 
 namespace GloboTicket.TicketManagement.Application.Features.Categories.Commands.CreateCateogry
 {
-    public class CreateCategoryCommandResponse: BaseResponse
+    public class CreateCategoryCommandResponse : BaseResponse
     {
         public CreateCategoryCommandResponse(): base()
         {
