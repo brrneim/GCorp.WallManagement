@@ -18,5 +18,10 @@
   <ItemGroup>
     <ProjectReference Include="..\GloboTicket.TicketManagement.Domain\GloboTicket.TicketManagement.Domain.csproj" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Features\Comments\" />
+    <Folder Include="Features\Messages\Commands\" />
+  </ItemGroup>
 
 </Project>
