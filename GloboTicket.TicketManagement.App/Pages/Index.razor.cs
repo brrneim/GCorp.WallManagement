@@ -36,5 +36,15 @@ namespace GloboTicket.TicketManagement.App.Pages
         {
             await AuthenticationService.Logout();
         }
+
+        protected void NavigateToWorkCreate()
+        {
+            NavigationManager.NavigateTo("work-create");
+        }
+        protected void NavigateToMyScreen()
+        {
+            NavigationManager.NavigateTo("myscreen-create");
+        }
+        
     }
 }
