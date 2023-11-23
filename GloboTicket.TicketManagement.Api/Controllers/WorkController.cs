@@ -20,9 +20,9 @@ namespace GloboTicket.TicketManagement.Api.Controllers
         }
 
         //[Authorize]
-        [HttpGet("all", Name = "GetAllWorks")]
+        [HttpGet(Name = "GetAllWorks")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<WorkListVm>>> GetAllCategories()
+        public async Task<ActionResult<List<WorkListVm>>> GetAllWorks()
         {
             var dtos = await _mediator.Send(new GetWorkListQuery());
             return Ok(dtos);

@@ -13,7 +13,7 @@ namespace GloboTicket.TicketManagement.Application.Models.Dtos
         public int CountyId { get; set; }
         public string LocationX { get; set; }
         public string LocationY { get; set; }
-        public Guid DealCustomerId { get; set; }
+        public Guid? DealCustomerId { get; set; }
         public DateTime ExpireDate { get; set; }
         public bool IsActive { get; set; }
         public Guid StateId { get; set; }

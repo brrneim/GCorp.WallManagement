@@ -1,4 +1,7 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.App.Services
 {
@@ -11,5 +14,7 @@ namespace GloboTicket.TicketManagement.App.Services
                 return _httpClient;
             }
         }
+
+       
     }
 }

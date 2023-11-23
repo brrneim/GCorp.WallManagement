@@ -13,6 +13,40 @@
         <button @onclick="NavigateToMyScreen">VİTRİNİMİ OLUŞTUR</button>
         <br />
         <button @onclick="Logout">Logout</button>
+
+        @if (Works == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Work name</th>
+                        <th>Work date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var work in Works)
+                    {
+                        <tr>
+                            <td><img src="@(work.Id)" class="event-image" /></td>
+                            <td class="event-name">@work.Description</td>
+                            <td class="event-date">@work.ExpireDate.ToShortDateString() </td>
+                            <td>
+                                <a href="@($"workdetails/{work.Id}")" class="event-purchase-button btn">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
     </Authorized>
     <NotAuthorized>
         <button @onclick="NavigateToLogin">Click here to log in</button>
