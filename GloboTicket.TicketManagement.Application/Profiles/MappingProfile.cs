@@ -14,6 +14,7 @@ using GloboTicket.TicketManagement.Application.Features.Messages.Queries.GetCust
 using GloboTicket.TicketManagement.Application.Features.Orders.GetOrdersForMonth;
 using GloboTicket.TicketManagement.Application.Features.Ratings.Queries.GetCustomerRatingList;
 using GloboTicket.TicketManagement.Application.Features.States.Queries.GetStateQueryList;
+using GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkList;
 using GloboTicket.TicketManagement.Application.Models.Dtos;
 using GloboTicket.TicketManagement.Domain.Entities;
 
@@ -51,6 +52,9 @@ namespace GloboTicket.TicketManagement.Application.Profiles
 
             CreateMap<CustomerMessage, CustomerMessagesListVm>();
             CreateMap<CustomerRating, CustomerRatingsListVm>();
+
+            CreateMap<Work, WorkListVm>().ReverseMap();
+            CreateMap<Work, WorkListVm>();
 
         }
     }

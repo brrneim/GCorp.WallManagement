@@ -21,5 +21,8 @@ namespace GloboTicket.TicketManagement.Application.Models.Authentication
         [Required]
         [MinLength(6)]
         public string Password { get; set; }
+
+        [Required]
+        public string PhoneNumber { get; set; }
     }
 }

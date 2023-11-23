@@ -1,13 +1,18 @@
 ﻿using GloboTicket.TicketManagement.App.Auth;
 using GloboTicket.TicketManagement.App.Contracts;
+using GloboTicket.TicketManagement.App.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.App.Pages
 {
     public partial class Index
     {
+        [Inject]
+        public IWorkDataService WorkDataService { get; set; }
+
         [Inject]
         private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
@@ -17,9 +22,14 @@ namespace GloboTicket.TicketManagement.App.Pages
         [Inject]
         public IAuthenticationService AuthenticationService { get; set; }
 
+        public ICollection<WorkListViewModel> Works { get; set; }
+
         protected async override Task OnInitializedAsync()
-        {
+        {           
             await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
+
+            Works = await WorkDataService.GetAllWorks();
+
         }
 
         protected void NavigateToLogin()
