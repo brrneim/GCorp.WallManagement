@@ -10,6 +10,7 @@ using GloboTicket.TicketManagement.Application.Features.Events.Commands.UpdateEv
 using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventDetail;
 using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventsExport;
 using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventsList;
+using GloboTicket.TicketManagement.Application.Features.Localizations.Queries.GetLocalizationQueryList;
 using GloboTicket.TicketManagement.Application.Features.Messages.Queries.GetCustomerMessageList;
 using GloboTicket.TicketManagement.Application.Features.Orders.GetOrdersForMonth;
 using GloboTicket.TicketManagement.Application.Features.Ratings.Queries.GetCustomerRatingList;
@@ -55,6 +56,12 @@ namespace GloboTicket.TicketManagement.Application.Profiles
 
             CreateMap<Work, WorkListVm>().ReverseMap();
             CreateMap<Work, WorkListVm>();
+
+            CreateMap<City, CityDto>();
+            CreateMap<City, CityListVm>();
+
+            CreateMap<County, CountyDto>();
+            CreateMap<County, CountyListVm>();
 
         }
     }

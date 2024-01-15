@@ -35,6 +35,8 @@ namespace GloboTicket.TicketManagement.Persistence
         public DbSet<WorkCategoryType> WorkCategoryTypes { get; set; }
         public DbSet<CustomerCategoryType> CustomerCategoryTypes { get; set; }
         public DbSet<CustomerMessage> CustomerMessages { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<County> Counties { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -207,6 +209,22 @@ namespace GloboTicket.TicketManagement.Persistence
                 b.ToTable("States");
                 b.Property(f => f.Id).IsRequired();
                 b.Property(f => f.Name).HasColumnType("text").IsRequired();
+            });
+
+            modelBuilder.Entity<City>(b =>
+            {
+                b.ToTable("Cities");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.Name).HasColumnType("text").IsRequired();
+                b.Property(f => f.CityId).IsRequired();
+            });
+
+            modelBuilder.Entity<County>(b =>
+            {
+                b.ToTable("Counties");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.Name).HasColumnType("text").IsRequired();
+                b.Property(f => f.CityId).IsRequired();
             });
 
             modelBuilder.Entity<Customer>(b =>
