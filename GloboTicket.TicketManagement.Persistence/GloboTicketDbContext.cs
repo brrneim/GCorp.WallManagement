@@ -35,6 +35,8 @@ namespace GloboTicket.TicketManagement.Persistence
         public DbSet<WorkCategoryType> WorkCategoryTypes { get; set; }
         public DbSet<CustomerCategoryType> CustomerCategoryTypes { get; set; }
         public DbSet<CustomerMessage> CustomerMessages { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<County> Counties { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -209,6 +211,22 @@ namespace GloboTicket.TicketManagement.Persistence
                 b.Property(f => f.Name).HasColumnType("text").IsRequired();
             });
 
+            modelBuilder.Entity<City>(b =>
+            {
+                b.ToTable("Cities");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.Name).HasColumnType("text").IsRequired();
+                b.Property(f => f.CityId).IsRequired();
+            });
+
+            modelBuilder.Entity<County>(b =>
+            {
+                b.ToTable("Counties");
+                b.Property(f => f.Id).IsRequired();
+                b.Property(f => f.Name).HasColumnType("text").IsRequired();
+                b.Property(f => f.CityId).IsRequired();
+            });
+
             modelBuilder.Entity<Customer>(b =>
             {
                 b.ToTable("Customers");
@@ -267,14 +285,15 @@ namespace GloboTicket.TicketManagement.Persistence
                 b.Property(f => f.Id).IsRequired();
                 b.Property(f => f.Description).IsRequired();
                 b.Property(f => f.CustomerId).IsRequired();
-                b.Property(f => f.CityId).IsRequired();
-                b.Property(f => f.CountyId).IsRequired();
                 b.Property(f => f.LocationX).IsRequired();
                 b.Property(f => f.LocationY).IsRequired();
                 b.Property(f => f.DealCustomerId).IsRequired(false);
                 b.Property(f => f.ExpireDate).IsRequired();
                 b.Property(f => f.IsActive).IsRequired();
                 b.Property(f => f.StateId).IsRequired();
+                b.Property(f => f.CityId).IsRequired();
+                b.Property(f => f.CountyId).IsRequired();
+
             });
 
             modelBuilder.Entity<WorkCategoryType>(b =>

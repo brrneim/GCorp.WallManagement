@@ -1,4 +1,31 @@
 ﻿@page "/work-create"
-<div>
-    this is work create page 
+@using GloboTicket.TicketManagement.App.ViewModels;
+<div class="mt-5 row">
+    <div class="card col-12 col-lg-6 mr-auto ml-auto p-3">
+        <h3 class="card-title">İlan Oluştur</h3>
+        <div class="card-body">
+            <EditForm Model="@WorkViewModel">
+                <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="Description">Açıklama:</label>
+                    <InputText id="DescriptionText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.Description" ></InputText>
+                </div>
+                <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="City">İl:</label>
+                    <InputText id="CityText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.City"></InputText>
+                </div>
+                <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="County">İlçe:</label>
+                    <InputText id="CountyText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.County"></InputText>
+                </div>
+                <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="ExpireDate">Son Geçerlilik Tarih:</label>
+                    <InputDate id="ExpireDateText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.ExpireDate"></InputDate>
+                </div>
+                <br />
+                <button @onclick="CreateWorkButton">İlan Ver</button>
+                <br />
+             </EditForm>
+        </div>
+    </div>
+   
 </div>

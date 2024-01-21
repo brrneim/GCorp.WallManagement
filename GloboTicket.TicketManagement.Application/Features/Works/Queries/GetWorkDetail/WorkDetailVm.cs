@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkList
+namespace GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkDetail
 {
-    public class WorkListVm
+    public class WorkDetailVm
     {
         public Guid Id { get; set; }
         public string Description { get; set; }
