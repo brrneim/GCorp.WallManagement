@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.Api.Controllers
@@ -20,7 +21,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
         }
 
         //[Authorize]
-        [HttpGet("all", Name = "GetAllCities")]
+        [HttpGet("allCities", Name = "GetAllCities")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<CityListVm>>> GetAllCities()
         {
@@ -28,13 +29,14 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return Ok(dtos);
         }
 
-        ////[Authorize]
-        //[HttpGet("all", Name = "GetAllCounties")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<ActionResult<List<CountyListVm>>> GetAllCounties()
-        //{
-        //    var dtos = await _mediator.Send(new GetCountyListQuery());
-        //    return Ok(dtos);
-        //}
+        //[Authorize]
+        [HttpGet("allCounties", Name = "GetAllCounties")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<CountyListVm>>> GetAllCounties(int cityId)
+        {
+            var dtos = await _mediator.Send(new GetCountyListQuery());
+            dtos = dtos.Where(a=>a.CityId == cityId).ToList();
+            return Ok(dtos);
+        }
     }
 }

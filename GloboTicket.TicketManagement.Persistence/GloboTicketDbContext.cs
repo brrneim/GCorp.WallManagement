@@ -285,14 +285,15 @@ namespace GloboTicket.TicketManagement.Persistence
                 b.Property(f => f.Id).IsRequired();
                 b.Property(f => f.Description).IsRequired();
                 b.Property(f => f.CustomerId).IsRequired();
-                b.Property(f => f.CityId).IsRequired();
-                b.Property(f => f.CountyId).IsRequired();
                 b.Property(f => f.LocationX).IsRequired();
                 b.Property(f => f.LocationY).IsRequired();
                 b.Property(f => f.DealCustomerId).IsRequired(false);
                 b.Property(f => f.ExpireDate).IsRequired();
                 b.Property(f => f.IsActive).IsRequired();
                 b.Property(f => f.StateId).IsRequired();
+                b.Property(f => f.CityId).IsRequired();
+                b.Property(f => f.CountyId).IsRequired();
+
             });
 
             modelBuilder.Entity<WorkCategoryType>(b =>
