@@ -1,4 +1,4 @@
-﻿using GloboTicket.TicketManagement.Identity.Models;
+﻿ using GloboTicket.TicketManagement.Identity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

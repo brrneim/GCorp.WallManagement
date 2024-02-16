@@ -22,7 +22,7 @@ namespace GloboTicket.TicketManagement.App.Services
         {
             try
             {
-                return true;
+                //return true;
                 AuthenticationRequest authenticationRequest = new AuthenticationRequest() { Email = email, Password = password };
                 var authenticationResponse = await _client.AuthenticateAsync(authenticationRequest);
 
@@ -41,9 +41,9 @@ namespace GloboTicket.TicketManagement.App.Services
             }
         }
 
-        public async Task<bool> Register(string firstName, string lastName, string userName, string email, string password)
+        public async Task<bool> Register(string firstName, string lastName, string userName, string email, string password,string phoneNumber)
         {
-            RegistrationRequest registrationRequest = new RegistrationRequest() { FirstName = firstName, LastName = lastName, Email = email, UserName = userName, Password = password };
+            RegistrationRequest registrationRequest = new RegistrationRequest() { FirstName = firstName, LastName = lastName, Email = email, UserName = userName, Password = password, PhoneNumber = phoneNumber };
             var response = await _client.RegisterAsync(registrationRequest);
 
             if (!string.IsNullOrEmpty(response.UserId))

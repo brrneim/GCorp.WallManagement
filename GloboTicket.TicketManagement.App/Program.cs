@@ -29,10 +29,10 @@ namespace GloboTicket.TicketManagement.App
 
             builder.Services.AddSingleton(new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:5001")
+                BaseAddress = new Uri("https://localhost:44330")
             });
 
-            builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = new Uri("https://localhost:5001"));
+            builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = new Uri("https://localhost:44330"));
 
             builder.Services.AddScoped<IEventDataService, EventDataService>();
             builder.Services.AddScoped<ICategoryDataService, CategoryDataService>();
