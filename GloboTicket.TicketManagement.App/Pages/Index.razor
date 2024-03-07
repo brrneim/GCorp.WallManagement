@@ -8,11 +8,13 @@
 
 <AuthorizeView>
     <Authorized>
-        <button @onclick="NavigateToWorkCreate">İŞ İLANI VER</button>
-        <br />
-        <button @onclick="NavigateToMyScreen">VİTRİNİMİ OLUŞTUR</button>
-        <br />
-        <button @onclick="Logout">Logout</button>
+        <div>
+            
+            <button class="btn btn-primary" @onclick="NavigateToWorkCreate">İŞ İLANI VER</button>
+            <button class="btn btn-primary" @onclick="NavigateToMyScreen">VİTRİNİMİ OLUŞTUR</button>
+            <button class="btn btn-primary" @onclick="Logout">Logout</button>
+        </div>
+       
 
         @if (Works == null)
         {
