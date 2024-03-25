@@ -22,7 +22,6 @@ namespace GloboTicket.TicketManagement.App.Services
         {
             try
             {
-                return true;
                 AuthenticationRequest authenticationRequest = new AuthenticationRequest() { Email = email, Password = password };
                 var authenticationResponse = await _client.AuthenticateAsync(authenticationRequest);
 
@@ -35,7 +34,7 @@ namespace GloboTicket.TicketManagement.App.Services
                 }
                 return false;
             }
-            catch 
+            catch
             {
                 return false;
             }

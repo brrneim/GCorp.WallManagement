@@ -39,7 +39,7 @@ namespace GloboTicket.TicketManagement.App.Pages
         {
             if (await JSRuntime.InvokeAsync<bool>("confirm", $"Do you want to export this list to Excel?"))
             {
-                var response = await HttpClient.GetAsync($"https://localhost:5001/api/events/export");
+                var response = await HttpClient.GetAsync($"https://localhost:44330/api/events/export");
                 response.EnsureSuccessStatusCode();
                 var fileBytes = await response.Content.ReadAsByteArrayAsync();
                 var fileName = $"MyReport{DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)}.csv";

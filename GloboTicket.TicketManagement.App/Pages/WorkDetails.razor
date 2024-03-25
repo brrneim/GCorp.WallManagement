@@ -1,0 +1,26 @@
+﻿@page "/workdetails"
+@page "/workdetails/{id}"
+
+<div class="mt-5 row">
+    <div class="card col-12 col-lg-6 mr-auto ml-auto p-3">
+        <h3 class="card-title">İlan Detayı</h3>
+        <div class="card-body">
+            <EditForm Model="@WorkViewModel">
+                <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="Description">Açıklama:</label>
+                </div>
+                <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="City">İl:</label>
+                </div>
+                <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="County">İlçe:</label>
+                </div>
+                <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="ExpireDate">Son Geçerlilik Tarih:</label>
+                </div>
+                <br />
+            </EditForm>
+        </div>
+    </div>
+
+</div>
