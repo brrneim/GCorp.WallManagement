@@ -42,6 +42,14 @@ namespace GloboTicket.TicketManagement.App.Pages
                 try
                 {
                     WorkViewModel = await WorkDataService.GetWork(id);
+                    WorkViewModel.CityList = await WorkDataService.GetAllCities();
+                    Guid city = new Guid(WorkViewModel.CityId);
+                    Guid county = new Guid(WorkViewModel.CountyId);
+                    int cityId = WorkViewModel.CityList.FirstOrDefault(a=>a.Id == city).CityId;
+                    WorkViewModel.City = WorkViewModel.CityList.FirstOrDefault(a => a.Id == city).Name.Trim();
+                    WorkViewModel.CountyList = await WorkDataService.GetAllCounties(cityId);
+                    WorkViewModel.County = WorkViewModel.CountyList.FirstOrDefault(a => a.Id == county).Name.Trim();
+                    WorkViewModel.ExpireDateString = WorkViewModel.ExpireDate.ToShortDateString();
                 }
                 catch (Exception ex)
                 {

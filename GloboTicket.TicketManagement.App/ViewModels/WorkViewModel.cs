@@ -17,6 +17,7 @@ namespace GloboTicket.TicketManagement.App.ViewModels
         public string LocationY { get; set; }
         public Guid? DealCustomerId { get; set; }
         public DateTime ExpireDate { get; set; }
+        public string ExpireDateString { get; set; }
         public bool IsActive { get; set; }
         public Guid StateId { get; set; }
         public ICollection<CityListViewModel> CityList { get; set; }

@@ -132,12 +132,12 @@ namespace GloboTicket.TicketManagement.App.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<WorkListVm> GetWorkAsync(Guid Id);
+        System.Threading.Tasks.Task<WorkVm> GetWorkAsync(Guid Id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<WorkListVm> GetWorkAsync(Guid Id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<WorkVm> GetWorkAsync(Guid Id, System.Threading.CancellationToken cancellationToken);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
@@ -1100,7 +1100,7 @@ namespace GloboTicket.TicketManagement.App.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<WorkListVm> GetWorkAsync(Guid id)
+        public System.Threading.Tasks.Task<WorkVm> GetWorkAsync(Guid id)
         {
             return GetWorkAsync(id,System.Threading.CancellationToken.None);
         }
@@ -1108,7 +1108,7 @@ namespace GloboTicket.TicketManagement.App.Services
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<WorkListVm> GetWorkAsync(Guid id, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<WorkVm> GetWorkAsync(Guid id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append($"api/Work/{id}");
@@ -1143,7 +1143,7 @@ namespace GloboTicket.TicketManagement.App.Services
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<WorkListVm>(response_, headers_).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<WorkVm>(response_, headers_).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1166,6 +1166,12 @@ namespace GloboTicket.TicketManagement.App.Services
                             response_.Dispose();
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                var error2 = ex.InnerException;
+                return null;
             }
             finally
             {
@@ -1783,6 +1789,41 @@ namespace GloboTicket.TicketManagement.App.Services
 
         [Newtonsoft.Json.JsonProperty("customerName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ImageUrl { get; set; }
+
+        /*
+                 public Guid Id { get; set; }
+        public string Description { get; set; }
+        public Guid CustomerId { get; set; }
+        public int CityId { get; set; }
+        public int CountyId { get; set; }
+        public string LocationX { get; set; }
+        public string LocationY { get; set; }
+        public Guid DealCustomerId { get; set; }
+        public DateTime ExpireDate { get; set; }
+        public bool IsActive { get; set; }
+        public Guid StateId { get; set; }
+         */
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class WorkVm
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("cityId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid CityId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("countyId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid CountyId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("expireDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTime ExpireDate { get; set; }
 
         /*
                  public Guid Id { get; set; }

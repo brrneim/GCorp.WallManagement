@@ -8,15 +8,19 @@
             <EditForm Model="@WorkViewModel">
                 <div class="input-group row mt-2">
                     <label class="col-12 col-md-4 p-0" for="Description">Açıklama:</label>
+                    <InputText id="DescriptionText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.Description"></InputText>
                 </div>
                 <div class="input-group row mt-2">
                     <label class="col-12 col-md-4 p-0" for="City">İl:</label>
+                    <InputText id="ExpireDateText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.City"></InputText>
                 </div>
                 <div class="input-group row mt-2">
                     <label class="col-12 col-md-4 p-0" for="County">İlçe:</label>
+                    <InputText id="ExpireDateText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.County"></InputText>
                 </div>
                 <div class="input-group row mt-2">
                     <label class="col-12 col-md-4 p-0" for="ExpireDate">Son Geçerlilik Tarih:</label>
+                    <InputText id="ExpireDateText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.ExpireDateString"></InputText>
                 </div>
                 <br />
             </EditForm>
