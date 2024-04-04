@@ -42,7 +42,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
                    Mail  =request.Email,
                    Username = request.UserName,
                    Password = _hashOperation.HashPassword(request.Password),
-                   PhoneNumber = request.PhoneNumber
+                   PhoneNumber = request.PhoneNumber,                   
             };
             var responseCustomer = await _mediator.Send(createCustomerCommand);
 

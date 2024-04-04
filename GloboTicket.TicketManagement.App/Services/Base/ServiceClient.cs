@@ -1625,6 +1625,10 @@ namespace GloboTicket.TicketManagement.App.Services
         [System.ComponentModel.DataAnnotations.StringLength(int.MaxValue, MinimumLength = 6)]
         public string Password { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("phoneNumber", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public string PhoneNumber { get; set; }
+
 
     }
 

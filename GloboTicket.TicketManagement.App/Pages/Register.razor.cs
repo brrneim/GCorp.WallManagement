@@ -28,7 +28,7 @@ namespace GloboTicket.TicketManagement.App.Pages
 
         protected async void HandleValidSubmit()
         {
-            var result = await AuthenticationService.Register(RegisterViewModel.FirstName, RegisterViewModel.LastName, RegisterViewModel.UserName, RegisterViewModel.Email, RegisterViewModel.Password);
+            var result = await AuthenticationService.Register(RegisterViewModel.FirstName, RegisterViewModel.LastName, RegisterViewModel.UserName, RegisterViewModel.Email, RegisterViewModel.Password, RegisterViewModel.PhoneNumber);
 
             if (result)
             {
