@@ -59,6 +59,33 @@ namespace GloboTicket.TicketManagement.App.Services
             return mappedEvents.ToList();
         }
 
+        public async Task<WorkViewModel> GetWork(Guid workId)
+        {
+            var work = await _client.GetWorkAsync(workId);
+            var mappedEvent = _mapper.Map<WorkViewModel>(work);
+            return mappedEvent;
+        }
+
+        public async Task<List<CityListViewModel>> GetAllCities()
+        {
+            var allWorks = await _client.GetAllCitiesAsync();
+            var mappedEvents = _mapper.Map<ICollection<CityListViewModel>>(allWorks);
+            return mappedEvents.ToList();
+        }
+
+        public async Task<List<CountyListViewModel>> GetAllCounties(int cityId)
+        {
+            var allWorks = await _client.GetAllCountiesAsync(cityId);
+            var mappedEvents = _mapper.Map<ICollection<CountyListViewModel>>(allWorks);
+            return mappedEvents.ToList();
+        }
+
+        public async Task<System.Guid> CreateWorkModel(CreateWorkModel createWorkModel)
+        {
+            var workId = await _client.CreateWorkAsync(createWorkModel);
+            return workId;
+        }
+
 
         public async Task<List<CategoryListModel>> GetCategories()
         {

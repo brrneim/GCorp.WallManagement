@@ -3,6 +3,9 @@ using GloboTicket.TicketManagement.Application.Features.Categories.Commands.Crea
 using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesList;
 using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesListWithEvents;
 using GloboTicket.TicketManagement.Application.Features.CategoryTypes.Queries.GetCategoryTypeList;
+using GloboTicket.TicketManagement.Application.Features.CustomerMessages.Commands;
+using GloboTicket.TicketManagement.Application.Features.CustomerMessages.Queries.GetCustomerMessageDetail;
+using GloboTicket.TicketManagement.Application.Features.CustomerMessages.Queries.GetCustomerMessageList;
 using GloboTicket.TicketManagement.Application.Features.Customers.Commands.CreateCustomer;
 using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerList;
 using GloboTicket.TicketManagement.Application.Features.Events.Commands.CreateEvent;
@@ -67,6 +70,11 @@ namespace GloboTicket.TicketManagement.Application.Profiles
 
             CreateMap<County, CountyDto>();
             CreateMap<County, CountyListVm>();
+
+            CreateMap<CustomerMessage, CustomerMessageListVm>().ReverseMap();
+            CreateMap<CustomerMessage, CreateCustomerMessageCommand>();
+            CreateMap<CustomerMessage, CreateCustomerMessageDto>();
+            CreateMap<CustomerMessage, CustomerMessageDetailVm>().ReverseMap();
 
         }
     }
