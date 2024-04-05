@@ -23,6 +23,7 @@ namespace GloboTicket.TicketManagement.Persistence
             services.AddScoped<ICustomerMessageRepository, CustomerMessageRepository>();
             services.AddScoped<ICustomerCommentRepository, CustomerCommentRepository>();
             services.AddScoped<IStateRepository, StateRepository>();
+            services.AddScoped<IWorkRepository, WorkRepository>();
             return services;    
         }
     }

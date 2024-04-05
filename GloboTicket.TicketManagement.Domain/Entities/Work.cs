@@ -18,5 +18,8 @@ namespace GloboTicket.TicketManagement.Domain.Entities
         public Guid StateId { get; set; }
         public Guid CityId { get; set; }
         public Guid CountyId { get; set; }
+        public City City { get; set; }
+        public County County { get; set; }
+        public virtual ICollection<WorkCategoryType> WorkCategoryTypes { get; set; }
     }
 }

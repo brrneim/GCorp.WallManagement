@@ -8,10 +8,13 @@ namespace GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWor
     {
         public decimal LocationX { get; set; }
         public decimal LocationY { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime ExpireTime { get; set; }
+        public DateTime FromTime { get; set; }
+        public DateTime ToTime { get; set; }
         public Guid CityId { get; set; }
         public Guid CountyId { get; set; }
         public Guid CategoryId { get; set; }
+
+        public int Page { get; set; }
+        public int Size { get; set; }
     }
 }

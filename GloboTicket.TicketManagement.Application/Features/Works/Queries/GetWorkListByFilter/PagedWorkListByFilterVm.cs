@@ -1,5 +1,4 @@
 ﻿using GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkList;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,9 +6,11 @@ using System.Text;
 namespace GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkListByFilter
 {
 
-    public class GetWorkListByFilterQuery : IRequest<PagedWorkListByFilterVm>
+    public class PagedWorkListByFilterVm
     {
-        public WorkFilterDto WorkFilterDto { get; set; }
-
+        public int Count { get; set; }
+        public int Page { get; set; }
+        public int Size { get; set; }
+        public ICollection<WorkListVm> WorkListByFilter { get; set; }
     }
 }
