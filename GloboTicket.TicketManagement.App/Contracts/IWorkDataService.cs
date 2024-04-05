@@ -13,9 +13,7 @@ namespace GloboTicket.TicketManagement.App.Contracts
         Task<System.Guid> CreateWorkModel(CreateWorkModel createWorkModel);
         Task<WorkViewModel> GetWork(Guid workId);
 
-        List<CityListModel> GetAllCities();
-
-        List<CountyListModel> GetAllCounty(int cityId);
+       // List<CountyListModel> GetAllCounty(int cityId);
 
         List<CountyListModel> GetAllCountyByCountyId(int CountyId);
 
