@@ -5,6 +5,7 @@ using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventD
 using GloboTicket.TicketManagement.Application.Features.Works.Commands;
 using GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkDetail;
 using GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkList;
+using GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkListByFilter;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -50,14 +51,37 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("allwithevents", Name = "GetAllWorksByFilter")]
+        //[HttpGet("allwithevents", Name = "GetAllWorksByFilter")]
+        //[ProducesDefaultResponseType]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public async Task<ActionResult<List<CategoryEventListVm>>> GetAllWorksByFilter(bool includeHistory)
+        //{
+        //    GetCategoriesListWithEventsQuery getCategoriesListWithEventsQuery = new GetCategoriesListWithEventsQuery() { IncludeHistory = includeHistory };
+
+        //    var dtos = await _mediator.Send(getCategoriesListWithEventsQuery);
+        //    return Ok(dtos);
+        //}
+
+        [HttpGet("allworksbyfilter", Name = "GetAllWorksByFilter")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<CategoryEventListVm>>> GetAllWorksByFilter(bool includeHistory)
+        public async Task<ActionResult<PagedWorkListByFilterVm>> GetAllWorksByFilter(DateTime fromDate, DateTime toDate, Guid SelectedCategoryId, Guid SelectedCityId, Guid SelectedCountyId, int page, int size)
         {
-            GetCategoriesListWithEventsQuery getCategoriesListWithEventsQuery = new GetCategoriesListWithEventsQuery() { IncludeHistory = includeHistory };
+            WorkFilterDto workFilterDto = new WorkFilterDto()
+            {
+                  CategoryId = SelectedCategoryId,
+                  CityId  = SelectedCityId,
+                  CountyId = SelectedCountyId,
+                  FromTime = fromDate,
+                  ToTime = toDate,
+                  Page = page,
+                  Size = size
 
-            var dtos = await _mediator.Send(getCategoriesListWithEventsQuery);
+            };
+
+            var getWorkListByFilterQuery = new GetWorkListByFilterQuery() { WorkFilterDto = workFilterDto };
+           
+            var dtos = await _mediator.Send(getWorkListByFilterQuery);
             return Ok(dtos);
         }
     }
