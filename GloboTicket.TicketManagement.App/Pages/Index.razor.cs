@@ -27,39 +27,57 @@ namespace GloboTicket.TicketManagement.App.Pages
         [Inject]
         public IAuthenticationService AuthenticationService { get; set; }
 
-        public ICollection<WorkListViewModel> Works { get; set; }
+        private PaginatedList<WorkListVm> paginatedList
+    = new PaginatedList<WorkListVm>();
 
-        public List<CityListModel> Citys { get; set; }
+        public ICollection<WorkListVm> Works { get; set; }
 
-        public List<CategoryListModel> Categories { get; set; }
+        public List<CityListViewModel> Citys { get; set; }
+
+        public List<CategoryTypeListVm> Categories { get; set; }
 
         public FilterViewModel FilterViewModel { get; set; }
           = new FilterViewModel() { ToDate = DateTime.Now, FromDate = DateTime.Now.AddDays(4) };
 
         public int SelectedCityId { get; set; }
+
+       // public int SelectedCountyId { get; set; }
+
         public Guid SelectedCountyId { get; set; }
+
         public Guid SelectedCategoryId { get; set; }
         
         public DateTime SelectedStartTime { get; set; }
 
-        public List<CountyListModel> Counties { get; set; }
+        public List<CountyListViewModel> Counties { get; set; }
 
         private string selectedString { get; set; }
+
+        private int? pageNumber = 1;
 
         protected async override Task OnInitializedAsync()
         {           
             await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
 
-            Works = await WorkDataService.GetAllWorks();
-            Citys = WorkDataService.GetAllCities();
+
+            //Works = await WorkDataService.GetWorksWithFilters(FilterViewModel, pageNumber.Value, 5); // await WorkDataService.GetAllWorks();
+            FilterViewModel.FromDate = DateTime.Now.AddDays(-30);
+            var works = await WorkDataService.GetWorksWithFilters(FilterViewModel, pageNumber.Value, 5);
+            if (works != null && works.Count > 0)
+            {
+                paginatedList = new PaginatedList<WorkListVm>(works.WorkFilterDto.ToList(), works.Count, pageNumber.Value, 5);
+                Works = paginatedList.Items;
+                StateHasChanged();
+            }
+            Citys = await WorkDataService.GetAllCities();
             Categories = await WorkDataService.GetCategories();
             
         }
-        protected void CitySelected(ChangeEventArgs e)
+        protected async void CitySelected(ChangeEventArgs e)
         {
             SelectedCityId = Convert.ToInt16(e.Value.ToString());
 
-            Counties = WorkDataService.GetAllCounty(SelectedCityId);
+            Counties = await WorkDataService.GetAllCounties(SelectedCityId);
             Console.WriteLine("It is definitely: " + SelectedCityId);
             StateHasChanged();
         }
@@ -93,19 +111,43 @@ namespace GloboTicket.TicketManagement.App.Pages
         {
             NavigationManager.NavigateTo("myscreen-create");
         }
-
+       
         protected async Task HandleValidSubmit()
         {
-           var cityId = WorkDataService.GetAllCities().Where(x=>x.CityId == SelectedCityId).FirstOrDefault().Id;
+            if(SelectedCityId != 0)
+            {
+                var x = await WorkDataService.GetAllCities();
+                    //..Where(x => x.CityId == SelectedCityId);
+                FilterViewModel.SelectedCityId =x.Where(x => x.CityId == SelectedCityId).FirstOrDefault().Id;
+            }
+            if(SelectedCountyId != Guid.Empty)
+            {
+                FilterViewModel.SelectedCountyId = SelectedCountyId;
+            }
 
-            FilterViewModel.SelectedCityId = cityId;
-            FilterViewModel.SelectedCountyId = SelectedCountyId;
-            //ApiResponse<Guid> response;
+            var works = await WorkDataService.GetWorksWithFilters(FilterViewModel, pageNumber.Value,5);
+            if (works != null && works.Count > 0)
+            {
+                paginatedList = new PaginatedList<WorkListVm>(works.WorkFilterDto.ToList(), works.Count, pageNumber.Value, 5);
+                Works = paginatedList.Items;
+            }
+            else
+            {
+                Works = new List<WorkListVm>();
+            }
+            StateHasChanged();
 
-            //response = await WorkDataService.(EventDetailViewModel);
-           
-            //HandleResponse(response);
 
+        }
+        public async void PageIndexChanged(int newPageNumber)
+        {
+            if (newPageNumber < 1 || newPageNumber > paginatedList.TotalPages)
+            {
+                return;
+            }
+            pageNumber = newPageNumber;
+            await HandleValidSubmit();
+            StateHasChanged();
         }
 
     }

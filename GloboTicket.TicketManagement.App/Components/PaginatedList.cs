@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GloboTicket.TicketManagement.App.Services;
+using System;
 using System.Collections.Generic;
 
 namespace GloboTicket.TicketManagement.App.Components
@@ -41,5 +42,6 @@ namespace GloboTicket.TicketManagement.App.Components
             }
             set { }
         }
+        
     }
 }

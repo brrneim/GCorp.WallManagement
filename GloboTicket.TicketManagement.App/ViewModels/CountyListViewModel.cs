@@ -7,5 +7,6 @@ namespace GloboTicket.TicketManagement.App.ViewModels
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int CityId { get; set; }
+     
     }
 }

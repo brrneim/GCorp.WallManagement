@@ -1,8 +1,10 @@
 ﻿using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesListWithEvents;
 using GloboTicket.TicketManagement.Application.Features.Customers.Commands.CreateCustomer;
 using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerList;
+using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerListByFilter;
 using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerRatingList;
 using GloboTicket.TicketManagement.Application.Features.Messages.Queries.GetCustomerMessageList;
+using GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkListByFilter;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +50,27 @@ namespace GloboTicket.TicketManagement.Api.Controllers
         {
             var response = await _mediator.Send(createCustomerCommand);
             return Ok(response);
+        }
+
+        [HttpGet("allcustomersbyfilter", Name = "GetAllCustomersByFilter")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<PagedCustomerListByFilterVm>> GetAllCustomersByFilter(Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int page, int size)
+        {
+            CustomerFilterDto customerFilterDto = new CustomerFilterDto()
+            {
+                CategoryId = selectedCategoryId,
+                CityId = selectedCityId,
+                CountyId = selectedCountyId,
+                Page = page,
+                Size = size
+
+            };
+
+            var getCustomerListByFilterQuery = new GetCustomerListByFilterQuery() { CustomerFilterDto = customerFilterDto };
+
+            var dtos = await _mediator.Send(getCustomerListByFilterQuery);
+            return Ok(dtos);
         }
 
     }

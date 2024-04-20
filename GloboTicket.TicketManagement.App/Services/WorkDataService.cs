@@ -5,6 +5,7 @@ using GloboTicket.TicketManagement.App.Services.Base;
 using GloboTicket.TicketManagement.App.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,10 +48,6 @@ namespace GloboTicket.TicketManagement.App.Services
 
         //}
 
-        public List<CountyListModel> GetAllCountyByCountyId(int CountyId)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<List<WorkListViewModel>> GetAllWorks()
         {
@@ -87,21 +84,33 @@ namespace GloboTicket.TicketManagement.App.Services
         }
 
 
-        public async Task<List<CategoryListModel>> GetCategories()
+        public async Task<List<CategoryTypeListVm>> GetCategories()
         {
-            var categoryList = new List<CategoryListModel>();
+            var categoryList = await _client.GetAllCategoryTypesAsync();
+            var mappedEvents = _mapper.Map<ICollection<CategoryTypeListVm>>(categoryList);
+            return mappedEvents.ToList();
 
-            categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Outdoor işleri" });
-            categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Ev işleri" });
-            categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Tasarım" });
-            categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Yazılım" });
+            //categoryList = await 
+            //categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Outdoor işleri" });
+            //categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Ev işleri" });
+            //categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Tasarım" });
+            //categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Yazılım" });
 
-            return categoryList;
+           // return categoryList;
         }
 
-        public Task<List<WorkListViewModel>> GetWorksWithFilters(FilterViewModel filterViewModel)
+        public async Task<PagedWorkListByFilterVm> GetWorksWithFilters(FilterViewModel filterViewModel, int page, int size)
         {
-            throw new NotImplementedException();
+                                                                            //DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int? page, int? size
+            var works = await _client.GetPagedWorkListByFilterVmAsync(filterViewModel.FromDate, filterViewModel.ToDate, filterViewModel.SelectedCategoryId,filterViewModel.SelectedCityId,filterViewModel.SelectedCountyId, page,size);
+            if(works.Count ==0)
+            {
+                return new PagedWorkListByFilterVm();
+            }
+            var mappedOrders = _mapper.Map<PagedWorkListByFilterVm>(works);
+
+            return mappedOrders;
+
         }
 
         //public async Task<List<WorkListViewModel>> GetWorksWithFilters(FilterViewModel filterViewModel)

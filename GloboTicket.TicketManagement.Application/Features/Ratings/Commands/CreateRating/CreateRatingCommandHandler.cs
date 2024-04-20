@@ -2,6 +2,7 @@
 using GloboTicket.TicketManagement.Application.Contracts.Persistence;
 using GloboTicket.TicketManagement.Domain.Entities;
 using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,7 +38,9 @@ namespace GloboTicket.TicketManagement.Application.Features.Ratings.Commands.Cre
             }
             if (createRatingCommandResponse.Success)
             {
-                var rating = new CustomerRating() { Value = request.Value };
+                decimal n1;
+                Decimal.TryParse(request.Value,out n1);
+                var rating = new CustomerRating() { Value = n1  };
                 rating = await _customerRatingRepository.AddAsync(rating);
                 createRatingCommandResponse.Category = _mapper.Map<CreateRatingDto>(rating);
             }

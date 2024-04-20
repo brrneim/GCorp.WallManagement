@@ -17,5 +17,6 @@ namespace GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWor
         public DateTime ExpireDate { get; set; }
         public bool IsActive { get; set; }
         public Guid StateId { get; set; }
+        public string CategoryName { get; set; }
     }
 }

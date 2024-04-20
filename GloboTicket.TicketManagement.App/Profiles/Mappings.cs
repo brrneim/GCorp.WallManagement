@@ -30,6 +30,8 @@ namespace GloboTicket.TicketManagement.App.Profiles
             CreateMap<CityListVm, CityListViewModel>().ReverseMap();
             CreateMap<CountyListVm, CountyListViewModel>().ReverseMap();
             CreateMap<WorkViewModel, WorkVm>().ReverseMap();
+
+            CreateMap<CustomerListVm, CustomerListViewModel>().ReverseMap();
         }
     }
 }

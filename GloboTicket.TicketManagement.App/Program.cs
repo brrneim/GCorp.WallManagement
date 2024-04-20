@@ -39,6 +39,7 @@ namespace GloboTicket.TicketManagement.App
             builder.Services.AddScoped<IOrderDataService, OrderDataService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<IWorkDataService, WorkDataService>();
+            builder.Services.AddScoped<ICustomerDataService, CustomerDataService>();
 
             await builder.Build().RunAsync();
         }
