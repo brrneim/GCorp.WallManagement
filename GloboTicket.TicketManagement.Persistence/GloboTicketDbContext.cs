@@ -3,6 +3,7 @@ using GloboTicket.TicketManagement.Domain.Common;
 using GloboTicket.TicketManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -269,7 +270,7 @@ namespace GloboTicket.TicketManagement.Persistence
                 b.Property(f => f.CustomerId).IsRequired();
                 b.Property(f => f.RatingCustomerId).IsRequired();
                 b.Property(f => f.Value).IsRequired();
-            });
+            });         
 
             modelBuilder.Entity<CategoryType>(b =>
             {

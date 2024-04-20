@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GloboTicket.TicketManagement.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,8 +17,6 @@ namespace GloboTicket.TicketManagement.Application.Features.Customers.Queries.Ge
         public string Title { get; set; }
         public string CompanyName { get; set; }
         public string CompanyPictureUrl { get; set; }
-        public int? CityId { get; set; }
-        public int? CountyId { get; set; }
         public string LocationX { get; set; }
         public string LocationY { get; set; }
         public string TwitterLink { get; set; }
@@ -25,5 +24,9 @@ namespace GloboTicket.TicketManagement.Application.Features.Customers.Queries.Ge
         public string FacebookLink { get; set; }
         public string TiktokLink { get; set; }
         public string LinkedInLink { get; set; }
+
+        public decimal Rating { get; set; }
+        public decimal CommentCount { get; set; }
+        public ICollection<SimleCategoryType> CategoryTypeNames { get; set; }
     }
 }

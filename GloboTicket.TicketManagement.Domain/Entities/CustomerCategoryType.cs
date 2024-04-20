@@ -10,5 +10,9 @@ namespace GloboTicket.TicketManagement.Domain.Entities
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }
         public Guid CategoryTypeId { get; set; }
+
+        public CategoryType CategoryType { get; set; }
+        public Customer Customer { get; set; }
+
     }
 }

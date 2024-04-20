@@ -1,4 +1,5 @@
-﻿using GloboTicket.TicketManagement.App.ViewModels;
+﻿using GloboTicket.TicketManagement.App.Services;
+using GloboTicket.TicketManagement.App.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,11 +16,9 @@ namespace GloboTicket.TicketManagement.App.Contracts
 
        // List<CountyListModel> GetAllCounty(int cityId);
 
-        List<CountyListModel> GetAllCountyByCountyId(int CountyId);
+        Task<List<CategoryTypeListVm>> GetCategories();
 
-        Task<List<CategoryListModel>> GetCategories();
-
-        Task<List<WorkListViewModel>> GetWorksWithFilters(FilterViewModel filterViewModel);
+        Task<PagedWorkListByFilterVm> GetWorksWithFilters(FilterViewModel filterViewModel, int page, int size);
 
     }
 }

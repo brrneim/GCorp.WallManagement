@@ -15,6 +15,5 @@ namespace GloboTicket.TicketManagement.App.Services
             }
         }
 
-       
     }
 }

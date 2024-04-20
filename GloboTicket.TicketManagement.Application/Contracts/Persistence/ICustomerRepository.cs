@@ -9,6 +9,8 @@ namespace GloboTicket.TicketManagement.Application.Contracts.Persistence
     public interface ICustomerRepository : IAsyncRepository<Customer>
     {
         Task<List<Customer>> GetCustomers();
+        Task<List<Customer>> GetCustomersByFilter(Guid cityId, Guid countyId, Guid categoryId, int page, int size);
+        Task<int> GetTotalCountOfCustomersWithFilter(Guid cityId, Guid countyId, Guid categoryId);
     }
 
 }

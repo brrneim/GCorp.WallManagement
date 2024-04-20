@@ -103,10 +103,10 @@
                                             <div class="row">
                                                 <span>Kategori</span>
                                                 <select class="form-control" @bind="@FilterViewModel.SelectedCategoryId">
-                                                    <option value="Seçiniz"></option>
+                                                    <option value="-1">Seçiniz</option>
                                                     @foreach (var category in Categories)
                                                     {
-                                                        <option value="@category.CategoryId"> @category.Name </option>
+                                                        <option value="@category.Id"> @category.Name </option>
                                                     }
 
                                                 </select>
@@ -123,7 +123,7 @@
                                             <div class="row">
                                                 <span>İl</span>
                                                 <select class="form-control" @onchange="CitySelected" >
-                                                    <option value="Seçiniz"></option>
+                                                    <option value="-1">Seçiniz</option>
                                                     @foreach (var city in Citys)
                                                     {
                                                         <option value="@city.CityId"> @city.Name </option>
@@ -133,16 +133,16 @@
                                             <div class="row">
                                                 <span>İlçe</span>
                                                 <select class="form-control" @bind="@SelectedCountyId" >
-                                                    <option value="Seçiniz"></option>
-                                                    @if (SelectedCityId != 0)
+                                                    <option value="-1">Seçiniz</option>
+                                                    @if (SelectedCityId != 0 && Counties != null)
                                                     {
                                                         @foreach (var county in Counties)
                                                         {
-                                                            <option value="@county.Id"> @county.Name </option>
+                                                            <option value="@county.Id">@county.Name</option>
                                                         }
                                                     }
-
                                                 </select>
+                                           
                                             </div>
                                          
                                         }
@@ -177,7 +177,7 @@
                                 </EditForm>
                                 </div>
                                 <div class="col-md-9">
-                                    <h2><i class="fa fa-file-o"></i> Result</h2>
+                                @*     <h2><i class="fa fa-file-o"></i> Result</h2>
                                     <hr>
 
                                     <div class="input-group">
@@ -187,7 +187,7 @@
                                         </span>
                                     </div>
 
-                                    <p>Showing all results matching "web development"</p>
+                                    <p>Showing all results matching "web development"</p> *@
                                     <div class="padding"></div>
                                    @*  <div class="row">
 
@@ -213,9 +213,9 @@
                                         </div>
                                     </div> *@
 
-                                    @if (Works == null)
+                                    @if (Works == null || Works.Count == 0)
                                     {
-                                        <p><em>Loading...</em></p>
+                                        <p><em>Kayıt bulunamadı.</em></p>
                                     }
                                     else
                                     {

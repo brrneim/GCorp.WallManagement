@@ -65,13 +65,13 @@ namespace GloboTicket.TicketManagement.Api.Controllers
         [HttpGet("allworksbyfilter", Name = "GetAllWorksByFilter")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<PagedWorkListByFilterVm>> GetAllWorksByFilter(DateTime fromDate, DateTime toDate, Guid SelectedCategoryId, Guid SelectedCityId, Guid SelectedCountyId, int page, int size)
+        public async Task<ActionResult<PagedWorkListByFilterVm>> GetAllWorksByFilter(DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int page, int size)
         {
             WorkFilterDto workFilterDto = new WorkFilterDto()
             {
-                  CategoryId = SelectedCategoryId,
-                  CityId  = SelectedCityId,
-                  CountyId = SelectedCountyId,
+                  CategoryId = selectedCategoryId,
+                  CityId  = selectedCityId,
+                  CountyId = selectedCountyId,
                   FromTime = fromDate,
                   ToTime = toDate,
                   Page = page,

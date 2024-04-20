@@ -37,12 +37,13 @@ namespace GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWor
                 , request.WorkFilterDto.Page, request.WorkFilterDto.Size);
 
             var works = _mapper.Map<List<WorkListVm>>(list);
+           
 
             var count = await _workRepository.GetTotalCountOfWorksWithFilter(request.WorkFilterDto.FromTime
                 , request.WorkFilterDto.ToTime, request.WorkFilterDto.CityId
                 , request.WorkFilterDto.CountyId, request.WorkFilterDto.CategoryId);
 
-            return new PagedWorkListByFilterVm() { Count = count, WorkListByFilter = works, Page = request.WorkFilterDto.Page, Size = request.WorkFilterDto.Size };
+            return new PagedWorkListByFilterVm() { Count = count, WorkFilterDto = works, Page = request.WorkFilterDto.Page, Size = request.WorkFilterDto.Size };
 
         }
 

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System;
 
 namespace GloboTicket.TicketManagement.Application.Features.Customers.Commands.CreateCustomer
 {
@@ -14,8 +15,8 @@ namespace GloboTicket.TicketManagement.Application.Features.Customers.Commands.C
         public string Title { get; set; }
         public string CompanyName { get; set; }
         public string CompanyPictureUrl { get; set; }
-        public int? CityId { get; set; }
-        public int? CountyId { get; set; }
+        public Guid? CityId { get; set; }
+        public Guid? CountyId { get; set; }
         public string LocationX { get; set; }
         public string LocationY { get; set; }
         public string TwitterLink { get; set; }
