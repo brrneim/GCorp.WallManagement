@@ -18,6 +18,7 @@ namespace GloboTicket.TicketManagement.App.Pages
     public partial class WorkCreate
     {
         public WorkViewModel WorkViewModel { get; set; }
+        //= new WorkViewModel();
 
         [Inject]
         public IWorkDataService WorkDataService { get; set; }
@@ -100,10 +101,13 @@ namespace GloboTicket.TicketManagement.App.Pages
 
         protected async void OnCityChanged(ChangeEventArgs args)
         {
+            int cityId = int.Parse(args.Value.ToString());
+            WorkViewModel.CityId = cityId.ToString();
+
             if (!string.IsNullOrWhiteSpace(WorkViewModel.CityId))
             {
-                int cityId = int.Parse(WorkViewModel.CityId);
                 WorkViewModel.CountyList = await WorkDataService.GetAllCounties(cityId);
+                StateHasChanged();
             }
         }
     }
