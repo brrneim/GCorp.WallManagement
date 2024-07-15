@@ -18,6 +18,8 @@ using GloboTicket.TicketManagement.Application.Features.Messages.Queries.GetCust
 using GloboTicket.TicketManagement.Application.Features.Orders.GetOrdersForMonth;
 using GloboTicket.TicketManagement.Application.Features.Ratings.Queries.GetCustomerRatingList;
 using GloboTicket.TicketManagement.Application.Features.States.Queries.GetStateQueryList;
+using GloboTicket.TicketManagement.Application.Features.WorkCategory.Commands;
+using GloboTicket.TicketManagement.Application.Features.WorkCategory.Queries.GetWorkCategoryList;
 using GloboTicket.TicketManagement.Application.Features.Works.Commands;
 using GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkDetail;
 using GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkList;
@@ -64,6 +66,11 @@ namespace GloboTicket.TicketManagement.Application.Profiles
             CreateMap<Work, CreateWorkCommand>();
             CreateMap<Work, CreateWorkDto>();
             CreateMap<Work, WorkDetailVm>().ReverseMap();
+
+            CreateMap<WorkCategoryType, WorkCategoryListVm>().ReverseMap();
+            CreateMap<WorkCategoryType, WorkCategoryListVm>();
+            CreateMap<WorkCategoryType, CreateWorkCategoryCommand>();
+            CreateMap<WorkCategoryType, CreateWorkCategoryDto>();
 
             CreateMap<City, CityDto>();
             CreateMap<City, CityListVm>();

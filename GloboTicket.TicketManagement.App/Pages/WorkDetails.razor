@@ -11,18 +11,33 @@
                     <InputText id="DescriptionText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.Description"></InputText>
                 </div>
                 <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="Category">Kategori:</label>
+                    <InputText id="CategoryText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.CategoryName"></InputText>
+                </div>
+                <div class="input-group row mt-2">
                     <label class="col-12 col-md-4 p-0" for="City">İl:</label>
-                    <InputText id="ExpireDateText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.City"></InputText>
+                    <InputText id="CityText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.City"></InputText>
                 </div>
                 <div class="input-group row mt-2">
                     <label class="col-12 col-md-4 p-0" for="County">İlçe:</label>
-                    <InputText id="ExpireDateText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.County"></InputText>
+                    <InputText id="CountyText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.County"></InputText>
                 </div>
                 <div class="input-group row mt-2">
                     <label class="col-12 col-md-4 p-0" for="ExpireDate">Son Geçerlilik Tarih:</label>
                     <InputText id="ExpireDateText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.ExpireDateString"></InputText>
                 </div>
                 <br />
+                <br />
+                <h3 class="card-title">Yeni Mesaj:</h3>
+                <InputTextArea @bind-Value="WorkViewModel.Description" Rows="2" Class="form-control" />
+                <br />
+                <br />
+                <br />
+                <br />
+                <h3 class="card-title">İş Hakkındaki Mesajlar:</h3>
+                <div>
+                    @((MarkupString)WorkViewModel.WorkMessage)
+                </div>
             </EditForm>
         </div>
     </div>

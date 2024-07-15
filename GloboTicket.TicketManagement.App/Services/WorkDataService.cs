@@ -63,6 +63,13 @@ namespace GloboTicket.TicketManagement.App.Services
             return mappedEvent;
         }
 
+        public async Task<List<CustomerMessageListViewModel>> GetCustomerMessages(Guid workId)
+        {
+            var customerMessages = await _client.GetCustomerMessageAsync(workId);
+            var mappedEvent = _mapper.Map<ICollection<CustomerMessageListViewModel>>(customerMessages);
+            return mappedEvent.ToList();
+        }
+
         public async Task<List<CityListViewModel>> GetAllCities()
         {
             var allWorks = await _client.GetAllCitiesAsync();
@@ -83,6 +90,11 @@ namespace GloboTicket.TicketManagement.App.Services
             return workId;
         }
 
+        public async Task<System.Guid> CreateWorkCategoryModel(CreateWorkCategoryModel createWorkCategoryModel)
+        {
+            var workCategoryId = await _client.CreateWorkCategoryAsync(createWorkCategoryModel);
+            return workCategoryId;
+        }
 
         public async Task<List<CategoryTypeListVm>> GetCategories()
         {
@@ -96,14 +108,22 @@ namespace GloboTicket.TicketManagement.App.Services
             //categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Tasarım" });
             //categoryList.Add(new CategoryListModel() { CategoryId = Guid.NewGuid(), Name = "Yazılım" });
 
-           // return categoryList;
+            // return categoryList;
+        }
+
+
+        public async Task<List<WorkCategoryTypeListVm>> GetWorkCategories()
+        {
+            var workCategoryList = await _client.GetAllWorkCategoryTypesAsync();
+            var mappedEvents = _mapper.Map<ICollection<WorkCategoryTypeListVm>>(workCategoryList);
+            return mappedEvents.ToList();
         }
 
         public async Task<PagedWorkListByFilterVm> GetWorksWithFilters(FilterViewModel filterViewModel, int page, int size)
         {
-                                                                            //DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int? page, int? size
-            var works = await _client.GetPagedWorkListByFilterVmAsync(filterViewModel.FromDate, filterViewModel.ToDate, filterViewModel.SelectedCategoryId,filterViewModel.SelectedCityId,filterViewModel.SelectedCountyId, page,size);
-            if(works.Count ==0)
+            //DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int? page, int? size
+            var works = await _client.GetPagedWorkListByFilterVmAsync(filterViewModel.FromDate, filterViewModel.ToDate, filterViewModel.SelectedCategoryId, filterViewModel.SelectedCityId, filterViewModel.SelectedCountyId, page, size);
+            if (works.Count == 0)
             {
                 return new PagedWorkListByFilterVm();
             }

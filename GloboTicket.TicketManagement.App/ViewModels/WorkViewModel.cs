@@ -20,6 +20,9 @@ namespace GloboTicket.TicketManagement.App.ViewModels
         public string ExpireDateString { get; set; }
         public bool IsActive { get; set; }
         public Guid StateId { get; set; }
+        public string CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public string WorkMessage { get; set; }
         public ICollection<CityListViewModel> CityList { get; set; }
         public ICollection<CountyListViewModel> CountyList { get; set; }
     }
