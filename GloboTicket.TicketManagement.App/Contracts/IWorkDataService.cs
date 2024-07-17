@@ -17,8 +17,14 @@ namespace GloboTicket.TicketManagement.App.Contracts
        // List<CountyListModel> GetAllCounty(int cityId);
 
         Task<List<CategoryTypeListVm>> GetCategories();
+        Task<System.Guid> CreateWorkCategoryModel(CreateWorkCategoryModel createWorkCategoryModel);
+
+        Task<List<WorkCategoryTypeListVm>> GetWorkCategories();
 
         Task<PagedWorkListByFilterVm> GetWorksWithFilters(FilterViewModel filterViewModel, int page, int size);
+
+        Task<List<CustomerMessageListViewModel>> GetCustomerMessages(Guid workId);
+        
 
     }
 }

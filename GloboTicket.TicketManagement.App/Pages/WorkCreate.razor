@@ -10,9 +10,19 @@
                     <InputText id="DescriptionText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.Description"></InputText>
                 </div>
                 <div class="input-group row mt-2">
+                    <label class="col-12 col-md-4 p-0" for="Category">Kategori:</label>
+                    <InputSelect id="categoryCombobox" @bind-Value="@WorkViewModel.CategoryId" class="form-control">
+                        <option value="Seçiniz"></option>
+                        @foreach (var category in Categories)
+                        {
+                            <option value="@category.Id"> @category.Name </option>
+                        }
+                    </InputSelect>
+                </div>
+                <div class="input-group row mt-2">
                     <label class="col-12 col-md-4 p-0" for="City">İl:</label>
                     @*<InputText id="CityText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.City"></InputText>*@
-                    <Select id="department" value ="@WorkViewModel.CityId"  @onchange="OnCityChanged" class="form-control">
+                    <Select id="department" value="@WorkViewModel.CityId" @onchange="OnCityChanged" class="form-control">
                         <option value=""></option>
                         @foreach (var city in WorkViewModel.CityList)
                         {

@@ -6,6 +6,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Works.Commands
 {
     public class CreateWorkDto
     {
+        public Guid Id { get; set; }
         public string Description { get; set; }
         public Guid CustomerId { get; set; }
         public Guid CityId { get; set; }

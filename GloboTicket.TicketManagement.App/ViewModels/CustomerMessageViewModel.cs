@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace GloboTicket.TicketManagement.Application.Features.CustomerMessages.Queries.GetCustomerMessageList
+namespace GloboTicket.TicketManagement.App.ViewModels
 {
-    public class CustomerMessageListVm
+    public class CustomerMessageViewModel
     {
         public Guid Id { get; set; }
         public string Message { get; set; }
