@@ -45,7 +45,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
         }
 
         [HttpPost(Name = "AddWork")]
-        public async Task<ActionResult<CreateWorkCommandResponse>> Create([FromBody] CreateWorkCommand createWorkCommand)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateWorkCommand createWorkCommand)
         {
             var response = await _mediator.Send(createWorkCommand);
             return Ok(response);

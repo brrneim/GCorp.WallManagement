@@ -163,6 +163,10 @@ namespace GloboTicket.TicketManagement.App.Services
 
         System.Threading.Tasks.Task<System.Guid> CreateWorkAsync(CreateWorkModel createWorkModel, System.Threading.CancellationToken cancellationToken);
 
+        System.Threading.Tasks.Task<System.Guid> CreateCustomerMessage(CreateCustomerMessageModel createCustomerMessageModel);
+
+        System.Threading.Tasks.Task<System.Guid> CreateCustomerMessage(CreateCustomerMessageModel createCustomerMessageModel, System.Threading.CancellationToken cancellationToken);
+
         System.Threading.Tasks.Task<System.Guid> CreateWorkCategoryAsync(CreateWorkCategoryModel createWorkCategoryModel);
 
         System.Threading.Tasks.Task<System.Guid> CreateWorkCategoryAsync(CreateWorkCategoryModel createWorkCategoryMModel, System.Threading.CancellationToken cancellationToken);
@@ -1555,6 +1559,76 @@ namespace GloboTicket.TicketManagement.App.Services
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Work");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Guid>(response_, headers_).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        public System.Threading.Tasks.Task<System.Guid> CreateCustomerMessage(CreateCustomerMessageModel createCustomerMessageModel)
+        {
+            return CreateCustomerMessage(createCustomerMessageModel, System.Threading.CancellationToken.None);
+        }
+        
+        public async System.Threading.Tasks.Task<System.Guid> CreateCustomerMessage(CreateCustomerMessageModel body, System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/CustomerMessage");
 
             var client_ = _httpClient;
             var disposeClient_ = false;

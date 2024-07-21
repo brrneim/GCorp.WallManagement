@@ -12,5 +12,6 @@ namespace GloboTicket.TicketManagement.Application.Features.CustomerMessages.Que
         public Guid CustomerSenderId { get; set; }
         public Guid CustomerReceiverId { get; set; }
         public bool IsRead { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
