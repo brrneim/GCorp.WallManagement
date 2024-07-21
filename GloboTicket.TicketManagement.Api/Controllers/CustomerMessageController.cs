@@ -27,7 +27,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
         }
 
         [HttpPost(Name = "AddCustomerMessage")]
-        public async Task<ActionResult<CreateCustomerMessageCommandResponse>> Create([FromBody] CreateCustomerMessageCommand createCustomerMessageCommand)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateCustomerMessageCommand createCustomerMessageCommand)
         {
             var response = await _mediator.Send(createCustomerMessageCommand);
             return Ok(response);

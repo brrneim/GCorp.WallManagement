@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace GloboTicket.TicketManagement.Application.Features.CustomerMessages.Commands
 {
-    public class CreateCustomerMessageCommandHandler : IRequestHandler<CreateCustomerMessageCommand, CreateCustomerMessageCommandResponse>
+    public class CreateCustomerMessageCommandHandler : IRequestHandler<CreateCustomerMessageCommand, Guid>
     {
         private readonly IAsyncRepository<CustomerMessage> _workRepository;
         private readonly IMapper _mapper;
@@ -22,37 +22,19 @@ namespace GloboTicket.TicketManagement.Application.Features.CustomerMessages.Com
             _workRepository = workRepository;
         }
 
-        public async Task<CreateCustomerMessageCommandResponse> Handle(CreateCustomerMessageCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateCustomerMessageCommand request, CancellationToken cancellationToken)
         {
-            var createWorkCommandResponse = new CreateCustomerMessageCommandResponse();
-
-            var validator = new CreateCustomerMessageCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
-
-            if (validationResult.Errors.Count > 0)
+            var customerMessage = new CustomerMessage()
             {
-                createWorkCommandResponse.Success = false;
-                createWorkCommandResponse.ValidationErrors = new List<string>();
-                foreach (var error in validationResult.Errors)
-                {
-                    createWorkCommandResponse.ValidationErrors.Add(error.ErrorMessage);
-                }
-            }
-            if (createWorkCommandResponse.Success)
-            {
-                var customerMessage = new CustomerMessage()
-                {
-                    Message = request.Message,
-                    CustomerReceiverId = request.CustomerRecieverId,
-                    CustomerSenderId = request.CustomerSenderId,
-                    WorkId = request.WorkId,
-                    IsRead = request.IsRead
-                };
-                customerMessage = await _workRepository.AddAsync(customerMessage);
-                createWorkCommandResponse.CreateCustomerMessage = _mapper.Map<CreateCustomerMessageDto>(customerMessage);
-            }
+                Message = request.Message,
+                CustomerReceiverId = request.CustomerRecieverId,
+                CustomerSenderId = request.CustomerSenderId,
+                WorkId = request.WorkId,
+                IsRead = request.IsRead
+            };
+            customerMessage = await _workRepository.AddAsync(customerMessage);
 
-            return createWorkCommandResponse;
+            return customerMessage.Id;
         }
     }
 }

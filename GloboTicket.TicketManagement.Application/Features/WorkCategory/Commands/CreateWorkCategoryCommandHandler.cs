@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace GloboTicket.TicketManagement.Application.Features.WorkCategory.Commands
 {
-    public class CreateWorkCategoryCommandHandler : IRequestHandler<CreateWorkCategoryCommand, CreateWorkCategoryCommandResponse>
+    public class CreateWorkCategoryCommandHandler : IRequestHandler<CreateWorkCategoryCommand, Guid>
     {
         private readonly IAsyncRepository<WorkCategoryType> _workCategoryRepository;
         private readonly IMapper _mapper;
@@ -22,19 +22,17 @@ namespace GloboTicket.TicketManagement.Application.Features.WorkCategory.Command
             _workCategoryRepository = workCategoryRepository;
         }
 
-        public async Task<CreateWorkCategoryCommandResponse> Handle(CreateWorkCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateWorkCategoryCommand request, CancellationToken cancellationToken)
         {
-            var createWorkCategoryCommandResponse = new CreateWorkCategoryCommandResponse();
             var workCategoryType = new WorkCategoryType()
             {
                 CategoryTypeId = request.CategoryTypeId,
                 WorkId = request.WorkId
             };
             workCategoryType = await _workCategoryRepository.AddAsync(workCategoryType);
-            createWorkCategoryCommandResponse.WorkCategory = _mapper.Map<CreateWorkCategoryDto>(workCategoryType);
 
 
-            return createWorkCategoryCommandResponse;
+            return workCategoryType.Id;
         }
 
     }

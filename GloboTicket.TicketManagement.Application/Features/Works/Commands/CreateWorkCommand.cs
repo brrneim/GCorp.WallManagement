@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GloboTicket.TicketManagement.Application.Features.Works.Commands
 {
-    public class CreateWorkCommand : IRequest<CreateWorkCommandResponse>
+    public class CreateWorkCommand : IRequest<Guid>
     {
         public Guid Id { get; set; }
         public string Description { get; set; }

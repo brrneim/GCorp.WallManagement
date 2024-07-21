@@ -5,6 +5,7 @@ using GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWorkLis
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
         }
 
         [HttpPost(Name = "AddWorkCategory")]
-        public async Task<ActionResult<CreateWorkCategoryCommandResponse>> Create([FromBody] CreateWorkCategoryCommand createWorkCategoryCommand)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateWorkCategoryCommand createWorkCategoryCommand)
         {
             var response = await _mediator.Send(createWorkCategoryCommand);
             return Ok(response);

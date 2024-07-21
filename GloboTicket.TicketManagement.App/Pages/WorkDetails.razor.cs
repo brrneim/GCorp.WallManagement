@@ -23,6 +23,13 @@ namespace GloboTicket.TicketManagement.App.Pages
 
         [Inject]
         public IWorkDataService WorkDataService { get; set; }
+
+        [Inject]
+        public ICustomerDataService CustomerDataService { get; set; }
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         [Inject]
         private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
@@ -59,7 +66,7 @@ namespace GloboTicket.TicketManagement.App.Pages
                     WorkViewModel.County = WorkViewModel.CountyList.FirstOrDefault(a => a.Id == county).Name.Trim();
                     WorkViewModel.ExpireDateString = WorkViewModel.ExpireDate.ToShortDateString();
                     var customerMessages = await WorkDataService.GetCustomerMessages(id);
-                    
+
                     var groupCustomerMessages = customerMessages.GroupBy(a => a.CustomerSenderId);
                     int count = 0;
                     foreach (var group in groupCustomerMessages)
@@ -81,7 +88,7 @@ namespace GloboTicket.TicketManagement.App.Pages
                         WorkViewModel.WorkMessage += $"{htmlContent}";
                         PrepareWorkMessage(customerMessages, filteredCustomerMessages, WorkViewModel);
                     }
-                   
+
                 }
                 catch (Exception ex)
                 {
@@ -93,12 +100,13 @@ namespace GloboTicket.TicketManagement.App.Pages
 
         private void PrepareWorkMessage(List<CustomerMessageListViewModel> customerMessages, List<CustomerMessageListViewModel> filteredCustomerMessages, WorkViewModel workViewModel)
         {
-            
+
             if (filteredCustomerMessages.Any())
             {
                 var filteredMessage = filteredCustomerMessages.FirstOrDefault();
                 var messages = customerMessages.Where(a => a.CustomerSenderId == filteredMessage.CustomerReceiverId && a.CustomerReceiverId == filteredMessage.CustomerSenderId).ToList();
                 filteredCustomerMessages.AddRange(messages);
+                filteredCustomerMessages = filteredCustomerMessages.OrderBy(a => a.CreatedDate).ToList();
                 foreach (var customerMessage in filteredCustomerMessages)
                 {
                     if (workViewModel.CustomerId == customerMessage.CustomerReceiverId)
@@ -113,6 +121,27 @@ namespace GloboTicket.TicketManagement.App.Pages
                     }
                 }
             }
+        }
+
+        protected async void SendMessageButton()
+        {
+            try
+            {
+                CreateCustomerMessageModel createCustomerMessageModel = new CreateCustomerMessageModel();
+                createCustomerMessageModel.Message = WorkViewModel.NewMessage;
+                createCustomerMessageModel.CustomerSenderId = new Guid("A93D4BEF-C25D-4C45-9F3F-0CD148871BBD");
+                createCustomerMessageModel.CustomerRecieverId = new Guid("3FA85F64-5717-4562-B3FC-2C963F66AFA6");
+                createCustomerMessageModel.WorkId = WorkViewModel.Id;
+                createCustomerMessageModel.IsRead = false;
+
+                var createdMessage = await CustomerDataService.CreateCustomerMessage(createCustomerMessageModel);
+                NavigationManager.NavigateTo("/");
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
     }
 }

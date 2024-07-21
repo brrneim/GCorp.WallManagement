@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GloboTicket.TicketManagement.Application.Features.CustomerMessages.Commands
 {
-    public class CreateCustomerMessageCommand : IRequest<CreateCustomerMessageCommandResponse>
+    public class CreateCustomerMessageCommand : IRequest<Guid>
     {
         public string Message { get; set; }
         public Guid? WorkId { get; set; }

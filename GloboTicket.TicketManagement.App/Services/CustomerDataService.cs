@@ -47,7 +47,7 @@ namespace GloboTicket.TicketManagement.App.Services
                             Name = x.Name,
                             Surname = x.Surname,
                             Title = x.Title,
-                            CategoryTypeNames = string.Join(", ", x.CategoryTypeNames.Select(y=>y.Name)),
+                            CategoryTypeNames = string.Join(", ", x.CategoryTypeNames.Select(y => y.Name)),
                             CompanyName = x.CompanyName,
                             Rating = (int)x.Rating,
                             CommentCount = x.CommentCount,
@@ -55,6 +55,12 @@ namespace GloboTicket.TicketManagement.App.Services
 
 
             return pagedCustomerListForFilterModel;
+        }
+
+        public async Task<System.Guid> CreateCustomerMessage(CreateCustomerMessageModel createCustomerMessageModel)
+        {
+            var messageId = await _client.CreateCustomerMessage(createCustomerMessageModel);
+            return messageId;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace GloboTicket.TicketManagement.App.ViewModels
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string WorkMessage { get; set; }
+        public string NewMessage { get; set; }
         public ICollection<CityListViewModel> CityList { get; set; }
         public ICollection<CountyListViewModel> CountyList { get; set; }
     }
