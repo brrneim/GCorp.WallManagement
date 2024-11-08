@@ -68,7 +68,6 @@ namespace GloboTicket.TicketManagement.App.Pages
             {
                 CreateWorkModel createWork = new CreateWorkModel();
 
-                createWork.Id = workId;
                 createWork.Description = WorkViewModel.Description;
                 createWork.CustomerId = new Guid("A93D4BEF-C25D-4C45-9F3F-0CD148871BBD");
                 createWork.CityId = WorkViewModel.CityList.FirstOrDefault(a => a.CityId == int.Parse(WorkViewModel.CityId)).Id;
@@ -80,8 +79,8 @@ namespace GloboTicket.TicketManagement.App.Pages
                 createWork.ExpireDate = WorkViewModel.ExpireDate;
                 createWork.IsActive = true;
                 createWork.StateId = new Guid("A2573410-D8C7-4FAE-821D-78001D29B4E9");
-                var createdWork = await WorkDataService.CreateWorkModel(createWork);
-                createWorkCategory.WorkId = createdWork;
+                var createdWorkId = await WorkDataService.CreateWorkModel(createWork);
+                createWorkCategory.WorkId = createdWorkId;
                 createWorkCategory.CategoryTypeId = new Guid(WorkViewModel.CategoryId);
                 var workCategory = await WorkDataService.CreateWorkCategoryModel(createWorkCategory);
 
@@ -89,10 +88,7 @@ namespace GloboTicket.TicketManagement.App.Pages
             }
             catch (Exception ex)
             {
-                createWorkCategory.WorkId = workId;
-                createWorkCategory.CategoryTypeId = new Guid(WorkViewModel.CategoryId);
-                var workCategory = await WorkDataService.CreateWorkCategoryModel(createWorkCategory);
-                NavigationManager.NavigateTo("/");
+
             }
         }
 
