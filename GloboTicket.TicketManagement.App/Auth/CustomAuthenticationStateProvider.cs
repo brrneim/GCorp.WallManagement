@@ -29,7 +29,11 @@ namespace GloboTicket.TicketManagement.App.Auth
 
             return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseTokenClaims(savedToken), "jwt")));
         }
-
+        public async Task<string> GetCustomerIdAsync()
+        {
+            var customerId = await _localStorage.GetItemAsync<string>("customerId");
+            return customerId;
+        }
         public void SetUserAuthenticated(string email)
         {
             var authUser = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, email) }, "apiauth"));

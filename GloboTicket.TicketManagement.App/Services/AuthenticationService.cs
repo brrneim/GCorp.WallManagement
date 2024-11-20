@@ -28,6 +28,7 @@ namespace GloboTicket.TicketManagement.App.Services
                 if (authenticationResponse.Token != string.Empty)
                 {
                     await _localStorage.SetItemAsync("token", authenticationResponse.Token);
+                    await _localStorage.SetItemAsync("customerId", authenticationResponse.CustomerId);
                     ((CustomAuthenticationStateProvider)_authenticationStateProvider).SetUserAuthenticated(email);
                     _client.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", authenticationResponse.Token);
                     return true;

@@ -69,7 +69,9 @@ namespace GloboTicket.TicketManagement.App.Pages
                 CreateWorkModel createWork = new CreateWorkModel();
 
                 createWork.Description = WorkViewModel.Description;
-                createWork.CustomerId = new Guid("A93D4BEF-C25D-4C45-9F3F-0CD148871BBD");
+                var loginUserId = await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).GetCustomerIdAsync();
+
+                createWork.CustomerId = new Guid(loginUserId); //new Guid("A93D4BEF-C25D-4C45-9F3F-0CD148871BBD");
                 createWork.CityId = WorkViewModel.CityList.FirstOrDefault(a => a.CityId == int.Parse(WorkViewModel.CityId)).Id;
                 Guid countyId = new Guid(WorkViewModel.CountyId);
                 createWork.CountyId = WorkViewModel.CountyList.FirstOrDefault(a => a.Id == countyId).Id;

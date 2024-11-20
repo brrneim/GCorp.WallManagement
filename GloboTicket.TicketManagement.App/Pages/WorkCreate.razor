@@ -4,7 +4,13 @@
     <div class="card col-12 col-lg-6 mr-auto ml-auto p-3">
         <h3 class="card-title">İlan Oluştur</h3>
         <div class="card-body">
-            <EditForm Model="@WorkViewModel" OnValidSubmit="CreateWorkButton">
+              @if (WorkViewModel == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <EditForm Context="editContext" Model="@WorkViewModel" OnValidSubmit="CreateWorkButton">
                 <div class="input-group row mt-2">
                     <label class="col-12 col-md-4 p-0" for="Description">Açıklama:</label>
                     <InputText id="DescriptionText" class="col-12 col-md-8 login-field" @bind-Value="WorkViewModel.Description"></InputText>
@@ -55,6 +61,7 @@
                 <button class="m-2 p-2">CreateWorkButton</button>
                 <br />
             </EditForm>
+            }
         </div>
     </div>
 

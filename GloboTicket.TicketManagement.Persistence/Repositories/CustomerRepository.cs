@@ -20,7 +20,11 @@ namespace GloboTicket.TicketManagement.Persistence.Repositories
         {
             return await _dbContext.Customers.ToListAsync();
         }
-
+        
+        public async Task<Customer> GetCustomerByEmail(string mail)
+        {
+            return await _dbContext.Customers.Where(x=>x.Mail == mail).FirstOrDefaultAsync();
+        }
         public async Task<List<Customer>> GetCustomersByFilter(Guid cityId, Guid countyId, Guid categoryId, int page, int size)
         {
             List<Guid> customerCategories = null;
@@ -38,7 +42,8 @@ namespace GloboTicket.TicketManagement.Persistence.Repositories
                 .Where(x => !x.IsPassive
             && (cityId == Guid.Empty || x.CityId == cityId)
             && (countyId == Guid.Empty || x.CountyId == countyId)
-            && (customerCategories == null || customerCategories.Contains(x.Id)))
+            && (customerCategories == null || customerCategories.Contains(x.Id))
+            && (x.Title != null))
            .Skip((page - 1) * size)
            .Take(size)
            .AsNoTracking()
@@ -52,10 +57,10 @@ namespace GloboTicket.TicketManagement.Persistence.Repositories
                 Username = y.Username,
                 Name = y.Name,
                 Surname = y.Surname,
-                Title = y.Title.Substring(0,200) + "...",
+                Title = y.Title == null ? "": y.Title.Substring(0,200) + "...",
                 Rating = y.CustomerRatings.Count() > 0 ? y.CustomerRatings.Average(x => x.Value) : decimal.Zero,
                 CommentCount = y.CustomerComments.Count(),
-                CategoryTypeNames = y.CustomerCategoryTypes.Select(x => new SimleCategoryType() { Name = x.CategoryType.Name }).ToList(),
+                CategoryTypeNames = y.CustomerCategoryTypes.Count() > 0 ? y.CustomerCategoryTypes.Select(x => new SimleCategoryType() { Name = x.CategoryType.Name }).ToList() : new List<SimleCategoryType>() ,
 
             }).ToList();
         }
@@ -75,5 +80,7 @@ namespace GloboTicket.TicketManagement.Persistence.Repositories
             && (countyId == Guid.Empty || x.CountyId == countyId)
             && (customerCategories == null || customerCategories.Contains(x.Id)));
         }
+
+       
     }
 }

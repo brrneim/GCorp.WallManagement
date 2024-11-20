@@ -1,5 +1,6 @@
 ﻿using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesListWithEvents;
 using GloboTicket.TicketManagement.Application.Features.Customers.Commands.CreateCustomer;
+using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerByEmail;
 using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerList;
 using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerListByFilter;
 using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerRatingList;
@@ -33,7 +34,15 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             var dtos = await _mediator.Send(new GetCustomersListQuery());
             return Ok(dtos);
         }
-       
+
+        [HttpGet("customerbyemail", Name = "GetCustomerByEmail")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<CustomerIdByEmailVm>> GetCustomerByEmail(string mail)
+        {
+            var dtos = await _mediator.Send(new GetCustomerByEmailQuery() {  Email = mail});
+            return Ok(dtos);
+        }
+
         [HttpGet("allRatings", Name = "GetAllRatingsByCustomerId")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]

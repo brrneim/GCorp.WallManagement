@@ -213,6 +213,10 @@ namespace GloboTicket.TicketManagement.App.Services
         System.Threading.Tasks.Task<PagedCustomerListByFilterVm> GetPagedCustomerListByFilterVmAsync(Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int page, int size);
 
 
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Guid> GetCustomerByEmailAsync(string mail);
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.8.2.0 (NJsonSchema v10.2.1.0 (Newtonsoft.Json v12.0.0.0))")]
@@ -1999,12 +2003,12 @@ namespace GloboTicket.TicketManagement.App.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<PagedWorkListByFilterVm> GetPagedWorkListByFilterVmAsync(DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int page, int size)
+        public System.Threading.Tasks.Task<PagedWorkListByFilterVm> GetPagedWorkListByFilterVmAsync(DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, Guid dealCustomerId, int page, int size)
         {
-            return GetPagedWorkListByFilterVmAsync(fromDate, toDate, selectedCategoryId,  selectedCityId,  selectedCountyId, page, size, System.Threading.CancellationToken.None);
+            return GetPagedWorkListByFilterVmAsync(fromDate, toDate, selectedCategoryId,  selectedCityId,  selectedCountyId, dealCustomerId, page, size, System.Threading.CancellationToken.None);
         }
 
-        public async Task<PagedWorkListByFilterVm> GetPagedWorkListByFilterVmAsync(DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int page, int size, CancellationToken cancellationToken)
+        public async Task<PagedWorkListByFilterVm> GetPagedWorkListByFilterVmAsync(DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, Guid dealCustomerId, int page, int size, CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Work/allworksbyfilter?");
@@ -2027,6 +2031,10 @@ namespace GloboTicket.TicketManagement.App.Services
             if (selectedCountyId != Guid.Empty)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("selectedCountyId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(selectedCountyId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (dealCustomerId != Guid.Empty)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("dealCustomerId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(selectedCountyId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             if (page != null)
             {
@@ -2193,6 +2201,83 @@ namespace GloboTicket.TicketManagement.App.Services
                     client_.Dispose();
             }
         }
+
+        public async Task<Guid> GetCustomerByEmailAsync(string mail, CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/Customer/customerbyemail?");
+
+            if (mail != string.Empty)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("mail") + "=").Append(System.Uri.EscapeDataString(ConvertToString(mail, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Guid>(response_, headers_).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        public Task<Guid> GetCustomerByEmailAsync(string mail)
+        {
+            return GetCustomerByEmailAsync(mail, CancellationToken.None);
+        }
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -2221,6 +2306,9 @@ namespace GloboTicket.TicketManagement.App.Services
 
         [Newtonsoft.Json.JsonProperty("token", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Token { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("customerId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Guid CustomerId { get; set; }
 
 
     }

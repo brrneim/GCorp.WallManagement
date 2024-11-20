@@ -7,6 +7,7 @@ using GloboTicket.TicketManagement.Application.Features.CustomerMessages.Command
 using GloboTicket.TicketManagement.Application.Features.CustomerMessages.Queries.GetCustomerMessageDetail;
 using GloboTicket.TicketManagement.Application.Features.CustomerMessages.Queries.GetCustomerMessageList;
 using GloboTicket.TicketManagement.Application.Features.Customers.Commands.CreateCustomer;
+using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerByEmail;
 using GloboTicket.TicketManagement.Application.Features.Customers.Queries.GetCustomerList;
 using GloboTicket.TicketManagement.Application.Features.Events.Commands.CreateEvent;
 using GloboTicket.TicketManagement.Application.Features.Events.Commands.UpdateEvent;
@@ -50,17 +51,18 @@ namespace GloboTicket.TicketManagement.Application.Profiles
 
             CreateMap<State, StateDto>();
             CreateMap<State, StateListVm>();
-
             CreateMap<Order, OrdersForMonthDto>();
 
             CreateMap<Customer, CustomerDto>();
             CreateMap<Customer, CustomerListVm>();
+            CreateMap<Customer, CustomerIdByEmailVm>();
             CreateMap<Customer, CreateCustomerCommand>();
             CreateMap<Customer, CreateCustomerDto>();
 
             CreateMap<CustomerMessage, CustomerMessagesListVm>();
             CreateMap<CustomerRating, CustomerRatingsListVm>();
 
+            CreateMap<Customer, CustomerIdByEmailVm>().ReverseMap();
             CreateMap<Work, WorkListVm>().ReverseMap();
             CreateMap<Work, WorkListVm>();
             CreateMap<Work, CreateWorkCommand>();

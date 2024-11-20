@@ -9,7 +9,7 @@ namespace GloboTicket.TicketManagement.Application.Contracts.Persistence
     public interface IWorkRepository : IAsyncRepository<Work>
     {
         Task<List<Work>> GetWorks();
-        Task<List<Work>> GetWorksByFilter(DateTime fromDate, DateTime toDate, Guid cityId, Guid countyId, Guid categoryId, int page, int size);
-        Task<int> GetTotalCountOfWorksWithFilter(DateTime fromDate, DateTime toDate, Guid cityId, Guid countyId, Guid categoryId);
+        Task<List<Work>> GetWorksByFilter(DateTime fromDate, DateTime toDate, Guid cityId, Guid countyId, Guid categoryId, Guid dealCustomerId, int page, int size);
+        Task<int> GetTotalCountOfWorksWithFilter(DateTime fromDate, DateTime toDate, Guid cityId, Guid countyId, Guid categoryId, Guid dealCustomerId);
     }
 }

@@ -1,0 +1,66 @@
+﻿@page "/customerdetail"
+@page "/customerdetails/{id}"
+<div class="mt-5 row">
+    <div class="col-md-6 col-lg-4 item">
+        <div class="box">
+            <img class="rounded-circle" src="img/2.jpg">
+            <h3 class="name">Zeynep Demir</h3>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <p>0 comments</p>
+            <p class="name">
+                Köpek Bakıcılığı, Bahçe Temizliği
+            </p>
+            <p class="description">I am a Sr. 3D Animation, Multimedia, and Audio Visual Developer with nearly 15 years of experience in 2D/3D Animation, Motion Graphics, Video Editing, and more. For the last 8 years, I have worked in ...</p><!--!-->
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 item">
+        Tamamladığım işler
+
+        <div class="col-md-9">
+            <div class="padding"></div>
+
+            @if (Works == null || Works.Count == 0)
+            {
+                <p><em>Kayıt bulunamadı.</em></p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Work name</th>
+                                <th class="text-right">Work date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var work in Works)
+                            {
+                                <tr>
+                                    <td class="image"><img src="https://www.bootdey.com/image/400x300/FF8C00" alt></td>
+                                    <td class="product"><strong>@work.Description</strong><br></td>
+                                    <td class="event-name"></td>
+                                    <td class="event-date">@work.ExpireDate.ToShortDateString() </td>
+                                    <td>
+                                        <a href="@($"workdetails/{work.Id}")" class="event-purchase-button btn">
+                                            <i class="fas fa-edit">Details</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>

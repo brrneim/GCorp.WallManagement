@@ -11,6 +11,7 @@ namespace GloboTicket.TicketManagement.Application.Contracts.Persistence
         Task<List<Customer>> GetCustomers();
         Task<List<Customer>> GetCustomersByFilter(Guid cityId, Guid countyId, Guid categoryId, int page, int size);
         Task<int> GetTotalCountOfCustomersWithFilter(Guid cityId, Guid countyId, Guid categoryId);
+        Task<Customer> GetCustomerByEmail(string Email);
     }
 
 }
