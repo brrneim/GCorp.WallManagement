@@ -58,16 +58,16 @@ namespace GloboTicket.TicketManagement.App.Pages
                 { 
                     filterViewModel = new FilterViewModel();
                     filterViewModel.DealCustomerId = new Guid(Id);
-                    var works = await WorkDataService.GetWorksWithFilters(filterViewModel, pageNumber.Value, 5);
-                    if (works != null && works.Count > 0)
-                    {
-                        paginatedList = new PaginatedList<WorkListVm>(works.WorkFilterDto.ToList(), works.Count, pageNumber.Value, 5);
-                        Works = paginatedList.Items;
-                    }
-                    else
-                    {
-                        Works = new List<WorkListVm>();
-                    }
+                    //var works = await WorkDataService.GetWorksWithFilters(filterViewModel, pageNumber.Value, 5);
+                    //if (works != null && works.Count > 0)
+                    //{
+                    //    paginatedList = new PaginatedList<WorkListVm>(works.WorkFilterDto.ToList(), works.Count, pageNumber.Value, 5);
+                    //    Works = paginatedList.Items;
+                    //}
+                    //else
+                    //{
+                    //    Works = new List<WorkListVm>();
+                    //}
                     
 
                 }
