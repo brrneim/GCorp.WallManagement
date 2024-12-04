@@ -179,11 +179,11 @@ namespace GloboTicket.TicketManagement.App.Services
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<PagedWorkListByFilterVm> GetPagedWorkListByFilterVmAsync(DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int page, int size, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<PagedWorkListByFilterVm> GetPagedWorkListByFilterVmAsync(DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, Guid dealCustomerId, int page, int size, System.Threading.CancellationToken cancellationToken);
                                                              
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<PagedWorkListByFilterVm> GetPagedWorkListByFilterVmAsync(DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int page, int size);
+        System.Threading.Tasks.Task<PagedWorkListByFilterVm> GetPagedWorkListByFilterVmAsync(DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, Guid dealCustomerId, int page, int size);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -2034,7 +2034,7 @@ namespace GloboTicket.TicketManagement.App.Services
             }
             if (dealCustomerId != Guid.Empty)
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("dealCustomerId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(selectedCountyId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder_.Append(System.Uri.EscapeDataString("dealCustomerId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(dealCustomerId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             if (page != null)
             {
