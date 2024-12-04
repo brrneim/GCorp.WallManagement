@@ -21,16 +21,12 @@ namespace GloboTicket.TicketManagement.App.Services
         }
         public async Task<PagedCustomerListForFilterModel> GetCustomersWithFilters(CustomerFilterViewModel filterViewModel, int page, int size)
         {
-            //DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int? page, int? size
             var works = await _client.GetPagedCustomerListByFilterVmAsync(filterViewModel.SelectedCategoryId, filterViewModel.SelectedCityId, filterViewModel.SelectedCountyId, page, size);
             if (works.Count == 0)
             {
                 return new PagedCustomerListForFilterModel();
             }
 
-            //var mappedOrders = _mapper.Map<PagedCustomerListForFilterModel>(works);
-
-            //return mappedOrders;
             var pagedCustomerListForFilterModel = new PagedCustomerListForFilterModel();
 
             pagedCustomerListForFilterModel.Size = works.Size;
@@ -61,6 +57,11 @@ namespace GloboTicket.TicketManagement.App.Services
         {
             var messageId = await _client.CreateCustomerMessage(createCustomerMessageModel);
             return messageId;
+        }
+        public async Task<System.Guid> GetCustomerIdByEmail(string mail)
+        {
+            var customerId = await _client.GetCustomerByEmailAsync(mail);
+            return customerId;
         }
     }
 }

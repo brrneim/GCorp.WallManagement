@@ -33,7 +33,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWor
         public async Task<PagedWorkListByFilterVm> Handle(GetWorkListByFilterQuery request, CancellationToken cancellationToken)
         {
             var list = await _workRepository.GetWorksByFilter(request.WorkFilterDto.FromTime, request.WorkFilterDto.ToTime, request.WorkFilterDto.CityId
-                , request.WorkFilterDto.CountyId, request.WorkFilterDto.CategoryId
+                , request.WorkFilterDto.CountyId, request.WorkFilterDto.CategoryId, request.WorkFilterDto.DealCustomerId
                 , request.WorkFilterDto.Page, request.WorkFilterDto.Size);
 
             var works = _mapper.Map<List<WorkListVm>>(list);
@@ -41,7 +41,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWor
 
             var count = await _workRepository.GetTotalCountOfWorksWithFilter(request.WorkFilterDto.FromTime
                 , request.WorkFilterDto.ToTime, request.WorkFilterDto.CityId
-                , request.WorkFilterDto.CountyId, request.WorkFilterDto.CategoryId);
+                , request.WorkFilterDto.CountyId, request.WorkFilterDto.CategoryId, request.WorkFilterDto.DealCustomerId);
 
             return new PagedWorkListByFilterVm() { Count = count, WorkFilterDto = works, Page = request.WorkFilterDto.Page, Size = request.WorkFilterDto.Size };
 

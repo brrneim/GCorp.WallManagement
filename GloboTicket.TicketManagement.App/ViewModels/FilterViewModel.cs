@@ -15,5 +15,7 @@ namespace GloboTicket.TicketManagement.App.ViewModels
 
         public Guid SelectedCategoryId { get; set; }
 
+        public Guid DealCustomerId { get; set;}
+
     }
 }

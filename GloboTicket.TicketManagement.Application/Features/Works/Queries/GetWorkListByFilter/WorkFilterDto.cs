@@ -13,6 +13,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Works.Queries.GetWor
         public Guid CityId { get; set; }
         public Guid CountyId { get; set; }
         public Guid CategoryId { get; set; }
+        public Guid DealCustomerId { get; set; }
 
         public int Page { get; set; }
         public int Size { get; set; }

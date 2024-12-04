@@ -1,4 +1,5 @@
-﻿using GloboTicket.TicketManagement.App.Auth;
+﻿using Blazored.LocalStorage;
+using GloboTicket.TicketManagement.App.Auth;
 using GloboTicket.TicketManagement.App.Contracts;
 using GloboTicket.TicketManagement.App.Services;
 using GloboTicket.TicketManagement.App.ViewModels;
@@ -34,6 +35,8 @@ namespace GloboTicket.TicketManagement.App.Pages
         private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
         public WorkViewModel WorkViewModel { get; set; }
+
+        public ICollection<WorkListVm> Works { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -127,10 +130,12 @@ namespace GloboTicket.TicketManagement.App.Pages
         {
             try
             {
+                var loginUserId = await((CustomAuthenticationStateProvider)AuthenticationStateProvider).GetCustomerIdAsync();
+
                 CreateCustomerMessageModel createCustomerMessageModel = new CreateCustomerMessageModel();
                 createCustomerMessageModel.Message = WorkViewModel.NewMessage;
-                createCustomerMessageModel.CustomerSenderId = new Guid("A93D4BEF-C25D-4C45-9F3F-0CD148871BBD");
-                createCustomerMessageModel.CustomerRecieverId = new Guid("3FA85F64-5717-4562-B3FC-2C963F66AFA6");
+                createCustomerMessageModel.CustomerSenderId = new Guid(loginUserId);
+                createCustomerMessageModel.CustomerRecieverId = WorkViewModel.CustomerId; // new Guid("3FA85F64-5717-4562-B3FC-2C963F66AFA6");
                 createCustomerMessageModel.WorkId = WorkViewModel.Id;
                 createCustomerMessageModel.IsRead = false;
 

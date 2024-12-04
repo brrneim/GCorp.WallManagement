@@ -122,7 +122,7 @@ namespace GloboTicket.TicketManagement.App.Services
         public async Task<PagedWorkListByFilterVm> GetWorksWithFilters(FilterViewModel filterViewModel, int page, int size)
         {
             //DateTime fromDate, DateTime toDate, Guid selectedCategoryId, Guid selectedCityId, Guid selectedCountyId, int? page, int? size
-            var works = await _client.GetPagedWorkListByFilterVmAsync(filterViewModel.FromDate, filterViewModel.ToDate, filterViewModel.SelectedCategoryId, filterViewModel.SelectedCityId, filterViewModel.SelectedCountyId, page, size);
+            var works = await _client.GetPagedWorkListByFilterVmAsync(filterViewModel.FromDate, filterViewModel.ToDate, filterViewModel.SelectedCategoryId, filterViewModel.SelectedCityId, filterViewModel.SelectedCountyId,filterViewModel.DealCustomerId, page, size);
             if (works.Count == 0)
             {
                 return new PagedWorkListByFilterVm();
